@@ -1,0 +1,4 @@
+To run, do:
+/opt/hipSYCL/bin/syclcc --hipsycl-platform=rocm --hipsycl-gpu-arch=gfx802 add.cpp -O2
+
+the gfx802 comes from running `rocminfo`
