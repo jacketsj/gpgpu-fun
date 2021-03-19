@@ -1,0 +1,16 @@
+hipSYCL having problems compiling for gpu
+going to use it for development and compile for openmp for now
+should switch to DPC++ or ComputeCpp later (if hipSYCL still doesn't work)
+There's two distinct problems with hipSYCL compilation. One is the CMake linking:
+
+/usr/bin/ld: _ZN7hipsycl4sycl6detail17host_local_memory17_static_local_memE: TLS definition in /opt/hipSYCL/bin/../lib//libhipSYCL_cpu.so section .tbss mismatches non-TLS definition in /opt/hipSYCL/lib/libhipSYCL_rocm.so section .bss
+/opt/hipSYCL/bin/../lib//libhipSYCL_cpu.so: error adding symbols: Bad value
+clang-9: error: linker command failed with exit code 1 (use -v to see invocation)
+add/CMakeFiles/add.dir/build.make:95: recipe for target 'add/add' failed
+make[2]: *** [add/add] Error 1
+CMakeFiles/Makefile2:156: recipe for target 'add/CMakeFiles/add.dir/all' failed
+make[1]: *** [add/CMakeFiles/add.dir/all] Error 2
+Makefile:102: recipe for target 'all' failed
+make: *** [all] Error 2
+
+Even without using cmake to compile though, there's weird problems. syclcc segfaults when compiling code that uses sycl (but not just from including it??)
