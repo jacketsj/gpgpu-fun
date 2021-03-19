@@ -6,8 +6,8 @@ typedef long long ll;
 
 // CONSTANTS
 // board dimensions
-#define WIDTH 7
-#define HEIGHT 7
+#define WIDTH 5
+#define HEIGHT 5
 /*
 #define WIDTH 10
 #define HEIGHT 10
@@ -633,28 +633,26 @@ void count_occurrences(grid_t& misses) {
 		});
 	});
 
-	// wait for the queue to finish running
-	queue.wait();
-	queue.submit([&](cl::sycl::handler& cgh) {
-		// reverse unrolling of state_frequency now that gpu computation is done
-		int sf_i = 0;
-		for (auto& subvec : state_frequency)
-			for (auto& elem : subvec)
-				elem = state_frequency_unrolled[sf_i++];
+	// since buffers are destroyed, queue should wait until all operations using
+	// them have finished before continuing
 
-		grid_t frequencies = create_grid();
-		for (int i = 0; i < n; ++i)
-			for (int state_index = 0; state_index < num_valid_states[i];
-					 ++state_index)
-				draw_state(state_index, lengths[i], state_frequency[i][state_index],
-									 frequencies);
+	// reverse unrolling of state_frequency now that gpu computation is done
+	int sf_i = 0;
+	for (auto& subvec : state_frequency)
+		for (auto& elem : subvec)
+			elem = state_frequency_unrolled[sf_i++];
 
-		cout << "Total states: " << total_states << endl;
-		// cout << "Total successful (this should be the same number): " <<
-		// total_successful << endl;
-		print_grid(frequencies);
-		print_grid_chance(frequencies, total_states);
-	});
+	grid_t frequencies = create_grid();
+	for (int i = 0; i < n; ++i)
+		for (int state_index = 0; state_index < num_valid_states[i]; ++state_index)
+			draw_state(state_index, lengths[i], state_frequency[i][state_index],
+								 frequencies);
+
+	cout << "Total states: " << total_states << endl;
+	// cout << "Total successful (this should be the same number): " <<
+	// total_successful << endl;
+	print_grid(frequencies);
+	print_grid_chance(frequencies, total_states);
 }
 
 int main() {
