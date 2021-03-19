@@ -2,6 +2,12 @@ project(hipsycl-examples)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/../cmake)
 
+#SET(CMAKE_CXX_COMPILER /opt/hipSYCL/bin/syclcc)
+SET(hipSYCL_DIR /opt/hipSYCL/lib/cmake)
+SET(HIPSYCL_PLATFORM cpu)
+#SET(HIPSYCL_PLATFORM rocm)
+#SET(HIPSYCL_GPU_ARCH gfx802)
+
 find_package(hipSYCL CONFIG REQUIRED)
 
 if(NOT CMAKE_BUILD_TYPE)
@@ -29,6 +35,6 @@ cmake_minimum_required (VERSION 3.5)
 
 include_directories(${PROJECT_BINARY_DIR} ${PROJECT_SOURCE_DIR})
 
+subdirs(add)
 subdirs(bruteforce_nbody)
 subdirs(battleship)
-subdirs(add)
