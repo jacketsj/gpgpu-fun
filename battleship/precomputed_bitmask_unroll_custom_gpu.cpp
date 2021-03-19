@@ -586,7 +586,7 @@ void count_occurrences(grid_t& misses) {
 		cl::sycl::buffer<pos_set> currently_valid_sycl(
 				currently_valid.data(), cl::sycl::range<1>(currently_valid.size()));
 		auto currently_valid_acc =
-				currently_valid_sycl.get_access<cl::sycl::access::mode::discard_write>(
+				currently_valid_sycl.get_access<cl::sycl::access::mode::read_write>(
 						cgh);
 		// state_frequency_unrolled
 		cl::sycl::buffer<int> state_frequency_unrolled_sycl(
@@ -594,13 +594,12 @@ void count_occurrences(grid_t& misses) {
 				cl::sycl::range<1>(state_frequency_unrolled.size()));
 		auto state_frequency_unrolled_acc =
 				state_frequency_unrolled_sycl
-						.get_access<cl::sycl::access::mode::discard_write>(cgh);
+						.get_access<cl::sycl::access::mode::read_write>(cgh);
 		// total_states
 		cl::sycl::buffer<long long, 1> total_states_sycl(&total_states,
 																										 cl::sycl::range<1>(1));
 		auto total_states_acc =
-				total_states_sycl.get_access<cl::sycl::access::mode::discard_write>(
-						cgh);
+				total_states_sycl.get_access<cl::sycl::access::mode::read_write>(cgh);
 		// num_valid_states
 		cl::sycl::buffer<int> num_valid_states_sycl(
 				num_valid_states.data(), cl::sycl::range<1>(num_valid_states.size()));
