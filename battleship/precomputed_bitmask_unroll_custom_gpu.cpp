@@ -274,7 +274,6 @@ template <unsigned n_minus_ship_index, unsigned depth> struct unroll_pre {
 			ll sub_result =
 					unroll_pre<n_minus_ship_index - 1, depth - 1>::place_ship_pre(
 							validity_masks, currently_valid, params_list, num_valid_states);
-			// record counts (TODO: not part of precompute, do this after)
 			//count += sub_result;
 			//state_frequency[ship_index][state_index] += sub_result;
 			// set currently_valid values back
@@ -361,6 +360,78 @@ struct unroll_pre<n_minus_ship_index, 0u> {
 };
 */
 
+template <unsigned n_minus_ship_index, typename validity_masks_t,
+					typename validity_masks_offsets_t, typename currently_valid_t,
+					typename state_frequency_t, typename num_valid_states_t>
+struct unroll_gpu {
+	// state offset is starting index of states for current ship in
+	// state_frequency
+	// edit_offset is starting index of edits to store in edit array
+	static ll place_ship_gpu(validity_masks_t validity_masks,
+													 validity_masks_offsets_t validity_masks_offsets,
+													 currently_valid_t currently_valid,
+													 state_frequency_t state_frequency,
+													 num_valid_states_t num_valid_states,
+													 size_t state_offset) {
+		int ship_index = n - n_minus_ship_index; // const int?
+
+		// Save the information about currently_valid that we will need when we
+		// return from recursive calls
+
+		// count of the number of valid placements of all remaining ships
+		ll count = 0;
+
+		pos_set edits[n - ship_index - 1];
+		for (int j = ship_index + 1; j < n; ++j)
+			edits[j - ship_index - 1] = currently_valid[j];
+
+		// iterate over all the ship states that are still valid
+		pos_set current = currently_valid[ship_index];
+		int state_index;
+		while ((state_index = current.bitscan_destructive_any()) != -1) {
+			// int state_index = current.bitscan_destructive();
+			// update legal states for remaining ships
+			for (int j = ship_index + 1; j < n; ++j)
+				currently_valid[j] &=
+						validity_masks[validity_masks_offsets[ship_index] +
+													 state_index * n + j]; // TODO is this right?
+			// recurse on remaining ships
+			ll sub_result = unroll_gpu<
+					n_minus_ship_index - 1, validity_masks_t, validity_masks_offsets_t,
+					currently_valid_t, state_frequency_t,
+					num_valid_states_t>::place_ship_gpu(validity_masks,
+																							validity_masks_offsets,
+																							currently_valid, state_frequency,
+																							num_valid_states,
+																							state_offset +
+																									num_valid_states[ship_index]);
+			// record counts
+			count += sub_result;
+			state_frequency[state_offset + state_index] += sub_result;
+			// set currently_valid values back
+			for (int j = ship_index + 1; j < n; ++j)
+				currently_valid[j] = edits[j - ship_index - 1];
+		}
+		return count;
+	}
+};
+
+template <typename validity_masks_t, typename validity_masks_offsets_t,
+					typename currently_valid_t, typename state_frequency_t,
+					typename num_valid_states_t>
+struct unroll_gpu<0u, validity_masks_t, validity_masks_offsets_t,
+									currently_valid_t, state_frequency_t, num_valid_states_t> {
+	static ll place_ship_gpu(validity_masks_t validity_masks,
+													 validity_masks_offsets_t validity_masks_offsets,
+													 currently_valid_t currently_valid,
+													 state_frequency_t state_frequency,
+													 num_valid_states_t num_valid_states,
+													 size_t state_offset) {
+		// base case: all ships placed successfully
+		return 1;
+	}
+};
+
 template <unsigned n_minus_ship_index> struct unroll {
 	static ll place_ship(const vector<vector<vector<pos_set>>>& validity_masks,
 											 vector<pos_set>& currently_valid,
@@ -443,6 +514,8 @@ void count_occurrences(grid_t& misses) {
 	for (int i = 0; i < n; ++i)
 		num_valid_states[i] = valid_states[i].size();
 
+	// validity masks: given a ship, a state, and a future ship, provides the mask
+	// for that ship
 	vector<vector<vector<pos_set>>> validity_masks =
 			find_all_pos_sets(valid_states);
 
@@ -462,11 +535,11 @@ void count_occurrences(grid_t& misses) {
 	// placements
 
 	// procedure plan:
-	// call unroll_pre::place_ship_pre, which creates a list of 'currently_valid'
-	// params for unroll::place_ship parallel_for on unroll::place_ship starting
-	// at ship index of recursion level + 1, store each result in a results vector
-	// (and also store stuff in state_frequency) call unroll_post::place_ship_post
-	// with the results vector
+	// call unroll_pre::place_ship_pre, which creates a list of
+	// 'currently_valid' params for unroll::place_ship parallel_for on
+	// unroll::place_ship starting at ship index of recursion level + 1, store
+	// each result in a results vector (and also store stuff in state_frequency)
+	// call unroll_post::place_ship_post with the results vector
 	//
 	// GPU stuff, currently just using single_task (pointless and bad)
 	ll total_states;
@@ -476,6 +549,25 @@ void count_occurrences(grid_t& misses) {
 						<< queue.get_device().get_info<cl::sycl::info::device::name>()
 						<< endl;
 	queue.submit([&](cl::sycl::handler& cgh) {
+		// validity masks
+		vector<pos_set> validity_masks_unrolled;
+		vector<int> validity_masks_offsets; // where each first ship index starts
+		for (auto& sub1 : validity_masks) {
+			validity_masks_offsets.push_back(validity_masks_unrolled.size());
+			for (auto& sub2 : sub1)
+				for (auto& sub3 : sub2)
+					validity_masks_unrolled.push_back(sub3);
+		}
+		cl::sycl::buffer<pos_set> validity_masks_unrolled_sycl(
+				validity_masks_unrolled.data(), validity_masks_unrolled.size());
+		cl::sycl::buffer<int> validity_masks_offsets_sycl(
+				validity_masks_offsets.data(), validity_masks_offsets.size());
+		auto validity_masks_unrolled_acc =
+				validity_masks_unrolled_sycl.get_access<cl::sycl::access::mode::read>(
+						cgh);
+		auto validity_masks_offsets_acc =
+				validity_masks_offsets_sycl.get_access<cl::sycl::access::mode::read>(
+						cgh);
 		// currently_valid
 		cl::sycl::buffer<pos_set> currently_valid_sycl(
 				currently_valid.data(), cl::sycl::range<1>(currently_valid.size()));
@@ -485,42 +577,34 @@ void count_occurrences(grid_t& misses) {
 		// state_frequency is a 2d non-uniform vector by default (intentionally,
 		// don't want false sharing) need to unroll it before sending to gpu, then
 		// unroll it again
+		// can be reversed by using num_valid_states vector
 		vector<int> state_frequency_unrolled;
-		vector<int> state_frequency_sizes;
-		for (auto& subvec : state_frequency) {
-			state_frequency_sizes.push_back(subvec.size());
+		for (auto& subvec : state_frequency)
 			for (auto& elem : subvec)
 				state_frequency_unrolled.push_back(elem);
-		}
 		cl::sycl::buffer<int, 1> state_frequency_unrolled_sycl(
 				state_frequency_unrolled.data(), state_frequency_unrolled.size());
 		auto state_frequency_unrolled_acc =
 				state_frequency_unrolled_sycl
-						.get_access<cl::sycl::access::mode::discard_write>(cgh);
-		cl::sycl::buffer<int, 1> state_frequency_sizes_sycl(
-				state_frequency_sizes.data(), state_frequency_sizes.size());
-		auto state_frequency_sizes_acc =
-				state_frequency_sizes_sycl
-						.get_access<cl::sycl::access::mode::discard_write>(cgh);
+						.get_access<cl::sycl::access::mode::read_write>(cgh);
 		// total_states
 		cl::sycl::buffer<long long, 1> total_states_sycl(&total_states,
 																										 cl::sycl::range<1>(1));
 		auto total_states_acc =
-				total_states_sycl.get_access<cl::sycl::access::mode::discard_write>(
-						cgh);
+				total_states_sycl.get_access<cl::sycl::access::mode::read_write>(cgh);
 		// num_valid_states
 		cl::sycl::buffer<int> num_valid_states_sycl(num_valid_states.data(),
 																								num_valid_states.size());
 		auto num_valid_states_acc =
-				num_valid_states_sycl.get_access<cl::sycl::access::mode::discard_write>(
-						cgh);
+				num_valid_states_sycl.get_access<cl::sycl::access::mode::read>(cgh);
+		// TODO: convert this to parallel_for
 		cgh.single_task<class bad_gpu_place_ship>([=]() {
 			// need to get these 'vector's onto the gpu (does the gpu even support
 			// vector types?)
-			vector<int> currently_valid_ref(
-					&currently_valid_acc[0],
-					&currently_valid_acc[0] +
-							(sizeof(int) * currently_valid_acc.get_count()));
+			// vector<pos_set> currently_valid_ref(
+			//		&currently_valid_acc[0],
+			//		&currently_valid_acc[0] +
+			//				(sizeof(int) * currently_valid_acc.get_count()));
 			/*
 			auto currently_valid_ref = currently_valid;
 			auto state_frequency_ref = state_frequency;
@@ -529,7 +613,22 @@ void count_occurrences(grid_t& misses) {
 				unroll<n>::place_ship(validity_masks, currently_valid_ref,
 																		state_frequency_ref, num_valid_states);
 			*/
+			// initialize edits array
+			total_states_acc[0] = unroll_gpu<n, decltype(validity_masks_unrolled_acc),
+																			 decltype(validity_masks_offsets_acc),
+																			 decltype(currently_valid_acc),
+																			 decltype(state_frequency_unrolled_acc),
+																			 decltype(num_valid_states_acc)>::
+					place_ship_gpu(validity_masks_unrolled_acc,
+												 validity_masks_offsets_acc, currently_valid_acc,
+												 state_frequency_unrolled_acc, num_valid_states_acc, 0);
 		});
+
+		// reverse unrolling of state_frequency now that gpu computation is done
+		int sf_i = 0;
+		for (auto& subvec : state_frequency)
+			for (auto& elem : subvec)
+				elem = state_frequency_unrolled[sf_i++];
 	});
 
 	grid_t frequencies = create_grid();
