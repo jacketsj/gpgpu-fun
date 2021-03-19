@@ -14,3 +14,6 @@ Makefile:102: recipe for target 'all' failed
 make: *** [all] Error 2
 
 Even without using cmake to compile though, there's weird problems. syclcc segfaults when compiling code that uses sycl (but not just from including it??)
+
+
+I think it was actually due to a misuse of memory management stuff. I shouldn't use vectors on gpu i guess.
