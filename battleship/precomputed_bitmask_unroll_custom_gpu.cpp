@@ -6,8 +6,8 @@ typedef long long ll;
 
 // CONSTANTS
 // board dimensions
-#define WIDTH 10
-#define HEIGHT 10
+#define WIDTH 7
+#define HEIGHT 7
 /*
 #define WIDTH 10
 #define HEIGHT 10
@@ -527,8 +527,12 @@ void count_occurrences(grid_t& misses) {
 
 	vector<vector<int>> state_frequency(
 			n); // for each ship, keep the frequency of each of its states
-	for (int i = 0; i < n; ++i)
+	for (int i = 0; i < n; ++i) {
 		state_frequency[i].resize(num_valid_states[i]);
+		for (auto& v :
+				 state_frequency[i]) // TODO does this help get rid of garbage data??
+			v = 0;
+	}
 
 	// ll total_successful = 0;
 	// call recursive ship placement routine to iterate through all valid
@@ -542,12 +546,20 @@ void count_occurrences(grid_t& misses) {
 	// call unroll_post::place_ship_post with the results vector
 	//
 	// GPU stuff, currently just using single_task (pointless and bad)
-	ll total_states;
+	ll total_states = 0;
 	cl::sycl::default_selector device_selector;
 	cl::sycl::queue queue(device_selector);
 	std::cout << "Running on "
 						<< queue.get_device().get_info<cl::sycl::info::device::name>()
 						<< endl;
+	// state_frequency is a 2d non-uniform vector by default (intentionally,
+	// don't want false sharing) need to unroll it before sending to gpu, then
+	// unroll it again
+	// can be reversed by using num_valid_states vector
+	vector<int> state_frequency_unrolled;
+	for (auto& subvec : state_frequency)
+		for (auto& elem : subvec)
+			state_frequency_unrolled.push_back(elem);
 	queue.submit([&](cl::sycl::handler& cgh) {
 		// validity masks
 		vector<pos_set> validity_masks_unrolled;
@@ -559,9 +571,11 @@ void count_occurrences(grid_t& misses) {
 					validity_masks_unrolled.push_back(sub3);
 		}
 		cl::sycl::buffer<pos_set> validity_masks_unrolled_sycl(
-				validity_masks_unrolled.data(), validity_masks_unrolled.size());
+				validity_masks_unrolled.data(),
+				cl::sycl::range<1>(validity_masks_unrolled.size()));
 		cl::sycl::buffer<int> validity_masks_offsets_sycl(
-				validity_masks_offsets.data(), validity_masks_offsets.size());
+				validity_masks_offsets.data(),
+				cl::sycl::range<1>(validity_masks_offsets.size()));
 		auto validity_masks_unrolled_acc =
 				validity_masks_unrolled_sycl.get_access<cl::sycl::access::mode::read>(
 						cgh);
@@ -574,27 +588,22 @@ void count_occurrences(grid_t& misses) {
 		auto currently_valid_acc =
 				currently_valid_sycl.get_access<cl::sycl::access::mode::discard_write>(
 						cgh);
-		// state_frequency is a 2d non-uniform vector by default (intentionally,
-		// don't want false sharing) need to unroll it before sending to gpu, then
-		// unroll it again
-		// can be reversed by using num_valid_states vector
-		vector<int> state_frequency_unrolled;
-		for (auto& subvec : state_frequency)
-			for (auto& elem : subvec)
-				state_frequency_unrolled.push_back(elem);
-		cl::sycl::buffer<int, 1> state_frequency_unrolled_sycl(
-				state_frequency_unrolled.data(), state_frequency_unrolled.size());
+		// state_frequency_unrolled
+		cl::sycl::buffer<int> state_frequency_unrolled_sycl(
+				state_frequency_unrolled.data(),
+				cl::sycl::range<1>(state_frequency_unrolled.size()));
 		auto state_frequency_unrolled_acc =
 				state_frequency_unrolled_sycl
-						.get_access<cl::sycl::access::mode::read_write>(cgh);
+						.get_access<cl::sycl::access::mode::discard_write>(cgh);
 		// total_states
 		cl::sycl::buffer<long long, 1> total_states_sycl(&total_states,
 																										 cl::sycl::range<1>(1));
 		auto total_states_acc =
-				total_states_sycl.get_access<cl::sycl::access::mode::read_write>(cgh);
+				total_states_sycl.get_access<cl::sycl::access::mode::discard_write>(
+						cgh);
 		// num_valid_states
-		cl::sycl::buffer<int> num_valid_states_sycl(num_valid_states.data(),
-																								num_valid_states.size());
+		cl::sycl::buffer<int> num_valid_states_sycl(
+				num_valid_states.data(), cl::sycl::range<1>(num_valid_states.size()));
 		auto num_valid_states_acc =
 				num_valid_states_sycl.get_access<cl::sycl::access::mode::read>(cgh);
 		// TODO: convert this to parallel_for
@@ -623,25 +632,30 @@ void count_occurrences(grid_t& misses) {
 												 validity_masks_offsets_acc, currently_valid_acc,
 												 state_frequency_unrolled_acc, num_valid_states_acc, 0);
 		});
+	});
 
+	// wait for the queue to finish running
+	queue.wait();
+	queue.submit([&](cl::sycl::handler& cgh) {
 		// reverse unrolling of state_frequency now that gpu computation is done
 		int sf_i = 0;
 		for (auto& subvec : state_frequency)
 			for (auto& elem : subvec)
 				elem = state_frequency_unrolled[sf_i++];
+
+		grid_t frequencies = create_grid();
+		for (int i = 0; i < n; ++i)
+			for (int state_index = 0; state_index < num_valid_states[i];
+					 ++state_index)
+				draw_state(state_index, lengths[i], state_frequency[i][state_index],
+									 frequencies);
+
+		cout << "Total states: " << total_states << endl;
+		// cout << "Total successful (this should be the same number): " <<
+		// total_successful << endl;
+		print_grid(frequencies);
+		print_grid_chance(frequencies, total_states);
 	});
-
-	grid_t frequencies = create_grid();
-	for (int i = 0; i < n; ++i)
-		for (int state_index = 0; state_index < num_valid_states[i]; ++state_index)
-			draw_state(state_index, lengths[i], state_frequency[i][state_index],
-								 frequencies);
-
-	cout << "Total states: " << total_states << endl;
-	// cout << "Total successful (this should be the same number): " <<
-	// total_successful << endl;
-	print_grid(frequencies);
-	print_grid_chance(frequencies, total_states);
 }
 
 int main() {
