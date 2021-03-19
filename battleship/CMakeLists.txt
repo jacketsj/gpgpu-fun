@@ -1,3 +1,4 @@
+#SET(CMAKE_CXX_COMPILER hipcc)
 add_executable(bs1 precomputed_bitmask_unroll_custom.cpp)
 add_sycl_to_target(TARGET bs1 SOURCES precomputed_bitmask_unroll_custom.cpp)
 add_executable(bs2 precomputed_bitmask_unroll_custom_gpu.cpp)

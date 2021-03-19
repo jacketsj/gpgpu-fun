@@ -240,6 +240,7 @@ find_all_pos_sets(vector<vector<int>>& valid_states) {
 	return res;
 }
 
+/*
 typedef vector<pos_set> place_ship_params;
 
 template <unsigned n_minus_ship_index, unsigned depth> struct unroll_pre {
@@ -274,10 +275,8 @@ template <unsigned n_minus_ship_index, unsigned depth> struct unroll_pre {
 					unroll_pre<n_minus_ship_index - 1, depth - 1>::place_ship_pre(
 							validity_masks, currently_valid, params_list, num_valid_states);
 			// record counts (TODO: not part of precompute, do this after)
-			/*
-			count += sub_result;
-			state_frequency[ship_index][state_index] += sub_result;
-			*/
+			//count += sub_result;
+			//state_frequency[ship_index][state_index] += sub_result;
 			// set currently_valid values back
 			for (int j = ship_index + 1; j < n; ++j)
 				currently_valid[j] = edits[j - ship_index - 1];
@@ -360,6 +359,7 @@ struct unroll_pre<n_minus_ship_index, 0u> {
 		params_list.push_back(currently_valid);
 	}
 };
+*/
 
 template <unsigned n_minus_ship_index> struct unroll {
 	static ll place_ship(const vector<vector<vector<pos_set>>>& validity_masks,
@@ -469,26 +469,66 @@ void count_occurrences(grid_t& misses) {
 	// with the results vector
 	//
 	// GPU stuff, currently just using single_task (pointless and bad)
+	ll total_states;
 	cl::sycl::default_selector device_selector;
 	cl::sycl::queue queue(device_selector);
 	std::cout << "Running on "
 						<< queue.get_device().get_info<cl::sycl::info::device::name>()
 						<< endl;
-	ll total_states;
 	queue.submit([&](cl::sycl::handler& cgh) {
+		// currently_valid
+		cl::sycl::buffer<pos_set> currently_valid_sycl(
+				currently_valid.data(), cl::sycl::range<1>(currently_valid.size()));
+		auto currently_valid_acc =
+				currently_valid_sycl.get_access<cl::sycl::access::mode::discard_write>(
+						cgh);
+		// state_frequency is a 2d non-uniform vector by default (intentionally,
+		// don't want false sharing) need to unroll it before sending to gpu, then
+		// unroll it again
+		vector<int> state_frequency_unrolled;
+		vector<int> state_frequency_sizes;
+		for (auto& subvec : state_frequency) {
+			state_frequency_sizes.push_back(subvec.size());
+			for (auto& elem : subvec)
+				state_frequency_unrolled.push_back(elem);
+		}
+		cl::sycl::buffer<int, 1> state_frequency_unrolled_sycl(
+				state_frequency_unrolled.data(), state_frequency_unrolled.size());
+		auto state_frequency_unrolled_acc =
+				state_frequency_unrolled_sycl
+						.get_access<cl::sycl::access::mode::discard_write>(cgh);
+		cl::sycl::buffer<int, 1> state_frequency_sizes_sycl(
+				state_frequency_sizes.data(), state_frequency_sizes.size());
+		auto state_frequency_sizes_acc =
+				state_frequency_sizes_sycl
+						.get_access<cl::sycl::access::mode::discard_write>(cgh);
+		// total_states
 		cl::sycl::buffer<long long, 1> total_states_sycl(&total_states,
 																										 cl::sycl::range<1>(1));
 		auto total_states_acc =
 				total_states_sycl.get_access<cl::sycl::access::mode::discard_write>(
 						cgh);
+		// num_valid_states
+		cl::sycl::buffer<int> num_valid_states_sycl(num_valid_states.data(),
+																								num_valid_states.size());
+		auto num_valid_states_acc =
+				num_valid_states_sycl.get_access<cl::sycl::access::mode::discard_write>(
+						cgh);
 		cgh.single_task<class bad_gpu_place_ship>([=]() {
+			// need to get these 'vector's onto the gpu (does the gpu even support
+			// vector types?)
+			vector<int> currently_valid_ref(
+					&currently_valid_acc[0],
+					&currently_valid_acc[0] +
+							(sizeof(int) * currently_valid_acc.get_count()));
+			/*
 			auto currently_valid_ref = currently_valid;
 			auto state_frequency_ref = state_frequency;
 			auto num_valid_states_ref = num_valid_states;
 			total_states_acc[0] =
-					unroll<n>::place_ship(validity_masks, currently_valid_ref,
-																state_frequency_ref, num_valid_states);
-			//, total_successful);
+				unroll<n>::place_ship(validity_masks, currently_valid_ref,
+																		state_frequency_ref, num_valid_states);
+			*/
 		});
 	});
 
