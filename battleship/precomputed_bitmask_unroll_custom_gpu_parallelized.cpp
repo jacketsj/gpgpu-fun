@@ -558,7 +558,7 @@ void count_occurrences(grid_t& misses) {
 			state_frequency_unrolled.push_back(elem);
 
 	// currently_valid_sets is the result of a few levels of recursion
-	constexpr int PRE_DEPTH = 0;
+	constexpr int PRE_DEPTH = 1;
 	vector<place_ship_params> currently_valid_sets;
 	vector<pos_set> currently_valid_dupe = currently_valid;
 	unroll_pre<n, PRE_DEPTH>::place_ship_pre(validity_masks, currently_valid_dupe,
@@ -576,6 +576,10 @@ void count_occurrences(grid_t& misses) {
 	// done TODO: define PRE_DEPTH, and modify unroll<n> to be unroll<n-PRE_DEPTH>
 	// done TODO: define subproblem_results for each entry in currently_valid_sets
 	vector<ll> subproblem_results(currently_valid_sets.size(), 0);
+
+	// TODO: subproblem_results.size() copies of state_frequency_unrolled
+	vector<ll> state_frequency_unrolled_arr(
+			state_frequency_unrolled.size() * subproblem_results.size(), 0);
 
 	ll total_states = 0;
 
@@ -622,13 +626,21 @@ void count_occurrences(grid_t& misses) {
 			auto currently_valid_sets_acc =
 					currently_valid_sets_sycl
 							.get_access<cl::sycl::access::mode::read_write>(cgh);
-			// state_frequency_unrolled
-			cl::sycl::buffer<int> state_frequency_unrolled_sycl(
+			// state_frequency_unrolled copies
+			cl::sycl::buffer<ll> state_frequency_unrolled_arr_sycl(
+					state_frequency_unrolled_arr.data(),
+					cl::sycl::range<1>(state_frequency_unrolled_arr.size()));
+			auto state_frequency_unrolled_arr_acc =
+					state_frequency_unrolled_arr_sycl
+							.get_access<cl::sycl::access::mode::read_write>(cgh);
+			/*
+			cl::sycl::buffer<ll> state_frequency_unrolled_sycl(
 					state_frequency_unrolled.data(),
 					cl::sycl::range<1>(state_frequency_unrolled.size()));
 			auto state_frequency_unrolled_acc =
 					state_frequency_unrolled_sycl
 							.get_access<cl::sycl::access::mode::read_write>(cgh);
+			*/
 			// total_states
 			cl::sycl::buffer<long long, 1> total_states_sycl(&total_states,
 																											 cl::sycl::range<1>(1));
@@ -644,8 +656,13 @@ void count_occurrences(grid_t& misses) {
 					cl::sycl::range<1>{subproblem_results.size()},
 					[=](cl::sycl::id<1> item_id) {
 						// TODO: fix false sharing with currently_valid_sets_acc
+						pos_set currently_valid[n];
+						for (int i = 0; i < n; ++i)
+							currently_valid[i] = currently_valid_sets_acc[item_id * n + i];
 						auto currently_valid_offset_acc =
 								&currently_valid_sets_acc[item_id * n];
+						auto state_frequency_unrolled_acc =
+								&state_frequency_unrolled_arr_acc[item_id];
 						subproblem_results_acc[item_id] =
 								unroll_gpu<n - PRE_DEPTH, decltype(validity_masks_unrolled_acc),
 													 decltype(validity_masks_offsets_acc),
@@ -670,15 +687,18 @@ void count_occurrences(grid_t& misses) {
 			v = currently_valid_sets_unrolled[cvs_i++];
 	// run place_ship_post
 	auto currently_valid_dupe_post = currently_valid;
-	unroll_post<n, PRE_DEPTH>::place_ship_post(
+	total_states = unroll_post<n, PRE_DEPTH>::place_ship_post(
 			validity_masks, currently_valid_dupe_post, state_frequency,
 			num_valid_states, subproblem_results);
 
 	// reverse unrolling of state_frequency now that gpu computation is done
+	int sfu_i = 0;
+	for (auto& copy : state_frequency_unrolled_arr)
+		state_frequency_unrolled[sfu_i++] += copy;
 	int sf_i = 0;
 	for (auto& subvec : state_frequency)
 		for (auto& elem : subvec)
-			elem = state_frequency_unrolled[sf_i++];
+			elem += state_frequency_unrolled[sf_i++];
 
 	grid_t frequencies = create_grid();
 	for (int i = 0; i < n; ++i)
