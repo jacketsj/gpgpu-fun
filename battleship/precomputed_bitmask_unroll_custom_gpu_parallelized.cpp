@@ -580,6 +580,9 @@ void count_occurrences(grid_t& misses) {
 	// TODO: subproblem_results.size() copies of state_frequency_unrolled
 	vector<ll> state_frequency_unrolled_arr(
 			state_frequency_unrolled.size() * subproblem_results.size(), 0);
+	size_t sum_of_valid_states = 0;
+	for (auto& s : num_valid_states)
+		sum_of_valid_states += s;
 
 	ll total_states = 0;
 
@@ -638,6 +641,7 @@ void count_occurrences(grid_t& misses) {
 																											 cl::sycl::range<1>(1));
 			auto sf_size_acc =
 					sf_size_sycl.get_access<cl::sycl::access::mode::read>(cgh);
+			assert(sf_size == sum_of_valid_states); // TODO: Delete this assert later
 			/*
 			cl::sycl::buffer<ll> state_frequency_unrolled_sycl(
 					state_frequency_unrolled.data(),
@@ -659,25 +663,28 @@ void count_occurrences(grid_t& misses) {
 			// TODO: convert this to parallel_for
 			cgh.parallel_for<class gpu_place_ship>(
 					cl::sycl::range<1>{subproblem_results.size()},
-					[=](cl::sycl::id<1> item_id) {
+					[=](cl::sycl::item<1> item_id) {
 						// TODO: fix false sharing with currently_valid_sets_acc
 						pos_set currently_valid[n];
 						for (int i = 0; i < n; ++i)
-							currently_valid[i] = currently_valid_sets_acc[item_id * n + i];
+							currently_valid[i] =
+									currently_valid_sets_acc[item_id.get_id(0) * n + i];
 						auto currently_valid_offset_acc =
-								&currently_valid_sets_acc[item_id * n];
-						auto state_frequency_unrolled_acc =
-								&state_frequency_unrolled_arr_acc[item_id * sf_size_acc[0]];
+								&currently_valid_sets_acc[item_id.get_id(0) * n];
+						// can just directly change starting state_offset
+						// auto state_frequency_unrolled_acc =
+						//		&state_frequency_unrolled_arr_acc[item_id * sf_size_acc[0]];
 						subproblem_results_acc[item_id] =
 								unroll_gpu<n - PRE_DEPTH, decltype(validity_masks_unrolled_acc),
 													 decltype(validity_masks_offsets_acc),
 													 decltype(currently_valid_offset_acc),
-													 decltype(state_frequency_unrolled_acc),
+													 decltype(state_frequency_unrolled_arr_acc),
 													 decltype(num_valid_states_acc)>::
 										place_ship_gpu(
 												validity_masks_unrolled_acc, validity_masks_offsets_acc,
 												currently_valid_offset_acc,
-												state_frequency_unrolled_acc, num_valid_states_acc, 0);
+												state_frequency_unrolled_arr_acc, num_valid_states_acc,
+												size_t(item_id.get_id(0) * sf_size_acc[0]));
 					});
 		});
 	}
