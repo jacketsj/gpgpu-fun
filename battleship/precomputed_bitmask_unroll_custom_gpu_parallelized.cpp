@@ -661,7 +661,7 @@ void count_occurrences(grid_t& misses) {
 			auto num_valid_states_acc =
 					num_valid_states_sycl.get_access<cl::sycl::access::mode::read>(cgh);
 			// TODO: convert this to parallel_for
-			/*
+			// I believe there is still some shared memory problem
 			cgh.parallel_for<class gpu_place_ship>(
 					cl::sycl::range<1>{subproblem_results.size()},
 					[=](cl::sycl::item<1> item_id) {
@@ -675,7 +675,7 @@ void count_occurrences(grid_t& misses) {
 						// can just directly change starting state_offset
 						// auto state_frequency_unrolled_acc =
 						//		&state_frequency_unrolled_arr_acc[item_id * sf_size_acc[0]];
-						subproblem_results_acc[item_id] =
+						subproblem_results_acc[item_id.get_id(0)] =
 								unroll_gpu<n - PRE_DEPTH, decltype(validity_masks_unrolled_acc),
 													 decltype(validity_masks_offsets_acc),
 													 decltype(currently_valid_offset_acc),
@@ -688,7 +688,6 @@ void count_occurrences(grid_t& misses) {
 												size_t(item_id.get_id(0) * sf_size_acc[0]));
 					});
 		});
-		*/
 	}
 
 	// since buffers (and the queue?) are destroyed, queue should wait until all
@@ -709,8 +708,8 @@ void count_occurrences(grid_t& misses) {
 	// reverse unrolling of state_frequency now that gpu computation is done
 	int sfu_i = 0;
 	for (auto& copy : state_frequency_unrolled_arr) {
-			state_frequency_unrolled[sfu_i++] += copy;
-			sfu_i %= state_frequency_unrolled.size();
+		state_frequency_unrolled[sfu_i++] += copy;
+		sfu_i %= state_frequency_unrolled.size();
 	}
 	int sf_i = 0;
 	for (auto& subvec : state_frequency)
@@ -728,13 +727,13 @@ void count_occurrences(grid_t& misses) {
 	// total_successful << endl;
 	print_grid(frequencies);
 	print_grid_chance(frequencies, total_states);
-	}
+}
 
-	int main() {
-		ios::sync_with_stdio(0);
-		cin.tie(NULL);
+int main() {
+	ios::sync_with_stdio(0);
+	cin.tie(NULL);
 
-		// no misses for now, empty grid
-		grid_t misses = create_grid();
-		count_occurrences(misses);
-	}
+	// no misses for now, empty grid
+	grid_t misses = create_grid();
+	count_occurrences(misses);
+}
