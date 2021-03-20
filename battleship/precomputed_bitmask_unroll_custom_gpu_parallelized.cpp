@@ -270,9 +270,8 @@ template <unsigned n_minus_ship_index, unsigned depth> struct unroll_pre {
 			for (int j = ship_index + 1; j < n; ++j)
 				currently_valid[j] &= validity_masks[ship_index][state_index][j];
 			// recurse on remaining ships
-			ll sub_result =
-					unroll_pre<n_minus_ship_index - 1, depth - 1>::place_ship_pre(
-							validity_masks, currently_valid, params_list, num_valid_states);
+			unroll_pre<n_minus_ship_index - 1, depth - 1>::place_ship_pre(
+					validity_masks, currently_valid, params_list, num_valid_states);
 			// count += sub_result;
 			// state_frequency[ship_index][state_index] += sub_result;
 			// set currently_valid values back
@@ -289,7 +288,7 @@ template <unsigned n_minus_ship_index, unsigned depth> struct unroll_post {
 									vector<pos_set>& currently_valid,
 									vector<vector<int>>& state_frequency,
 									const vector<int>& num_valid_states,
-									const vector<int>& results, size_t& param_index) {
+									const vector<ll>& results, size_t& param_index) {
 		int ship_index = n - n_minus_ship_index;
 
 		// Save the information about currently_valid that we will need when we
@@ -328,7 +327,7 @@ template <unsigned n_minus_ship_index, unsigned depth> struct unroll_post {
 	static ll place_ship_post(
 			const vector<vector<vector<pos_set>>>& validity_masks,
 			vector<pos_set>& currently_valid, vector<vector<int>>& state_frequency,
-			const vector<int>& num_valid_states, const vector<int>& results) {
+			const vector<int>& num_valid_states, const vector<ll>& results) {
 		size_t param_index = 0;
 		return place_ship_post(validity_masks, currently_valid, state_frequency,
 													 num_valid_states, results, param_index);
@@ -342,7 +341,7 @@ struct unroll_post<n_minus_ship_index, 0u> {
 									vector<pos_set>& currently_valid,
 									vector<vector<int>>& state_frequency,
 									const vector<int>& num_valid_states,
-									const vector<int>& results, size_t& param_index) {
+									const vector<ll>& results, size_t& param_index) {
 		return results[param_index++];
 	}
 };
@@ -560,7 +559,7 @@ void count_occurrences(grid_t& misses) {
 			state_frequency_unrolled.push_back(elem);
 
 	// currently_valid_sets is the result of a few levels of recursion
-	constexpr int PRE_DEPTH = min(2, n);
+	constexpr int PRE_DEPTH = 2;
 	vector<place_ship_params> currently_valid_sets;
 	vector<pos_set> currently_valid_dupe = currently_valid;
 	unroll_pre<n, PRE_DEPTH>::place_ship_pre(validity_masks, currently_valid_dupe,
@@ -624,32 +623,31 @@ void count_occurrences(grid_t& misses) {
 				num_valid_states.data(), cl::sycl::range<1>(num_valid_states.size()));
 		auto num_valid_states_acc =
 				num_valid_states_sycl.get_access<cl::sycl::access::mode::read>(cgh);
+		// subproblem_results
+		cl::sycl::buffer<long long, 1> subproblem_results_sycl(
+				subproblem_results.data(),
+				cl::sycl::range<1>(subproblem_results.size()));
+		auto subproblem_results_acc =
+				subproblem_results_sycl
+						.get_access<cl::sycl::access::mode::discard_write>(cgh);
 		// TODO: convert this to parallel_for
-		cgh.single_task<class bad_gpu_place_ship>([=]() {
-			// need to get these 'vector's onto the gpu (does the gpu even support
-			// vector types?)
-			// vector<pos_set> currently_valid_ref(
-			//		&currently_valid_acc[0],
-			//		&currently_valid_acc[0] +
-			//				(sizeof(int) * currently_valid_acc.get_count()));
-			/*
-			auto currently_valid_ref = currently_valid;
-			auto state_frequency_ref = state_frequency;
-			auto num_valid_states_ref = num_valid_states;
-			total_states_acc[0] =
-				unroll<n>::place_ship(validity_masks, currently_valid_ref,
-																		state_frequency_ref, num_valid_states);
-			*/
-			// initialize edits array
-			total_states_acc[0] = unroll_gpu<n, decltype(validity_masks_unrolled_acc),
-																			 decltype(validity_masks_offsets_acc),
-																			 decltype(currently_valid_acc),
-																			 decltype(state_frequency_unrolled_acc),
-																			 decltype(num_valid_states_acc)>::
-					place_ship_gpu(validity_masks_unrolled_acc,
-												 validity_masks_offsets_acc, currently_valid_acc,
-												 state_frequency_unrolled_acc, num_valid_states_acc, 0);
-		});
+		cgh.parallel_for<class gpu_place_ship>(
+				cl::sycl::range<1>{subproblem_results.size()},
+				[=](cl::sycl::item<1> item_id) {
+					// TODO: fix false sharing with currently_valid_sets_acc
+					auto currently_valid_offset_acc =
+							&currently_valid_sets_acc[item_id.get_id(0) * n];
+					subproblem_results_acc[item_id.get_id(0)] =
+							unroll_gpu<n - PRE_DEPTH, decltype(validity_masks_unrolled_acc),
+												 decltype(validity_masks_offsets_acc),
+												 decltype(currently_valid_offset_acc),
+												 decltype(state_frequency_unrolled_acc),
+												 decltype(num_valid_states_acc)>::
+									place_ship_gpu(
+											validity_masks_unrolled_acc, validity_masks_offsets_acc,
+											currently_valid_offset_acc, state_frequency_unrolled_acc,
+											num_valid_states_acc, 0);
+				});
 	});
 
 	// since buffers are destroyed, queue should wait until all operations using
@@ -661,9 +659,9 @@ void count_occurrences(grid_t& misses) {
 		for (auto& v : s)
 			v = currently_valid_sets_unrolled[cvs_i++];
 	// run place_ship_post
-	vector<pos_set> currently_valid_dupe_post = currently_valid;
+	auto currently_valid_dupe_post = currently_valid;
 	unroll_post<n, PRE_DEPTH>::place_ship_post(
-			validity_masks, currently_valid_dupe_post, currently_valid_sets,
+			validity_masks, currently_valid_dupe_post, state_frequency,
 			num_valid_states, subproblem_results);
 
 	// reverse unrolling of state_frequency now that gpu computation is done
