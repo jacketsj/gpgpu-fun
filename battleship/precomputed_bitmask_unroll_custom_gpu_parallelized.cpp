@@ -240,7 +240,6 @@ find_all_pos_sets(vector<vector<int>>& valid_states) {
 	return res;
 }
 
-/*
 typedef vector<pos_set> place_ship_params;
 
 template <unsigned n_minus_ship_index, unsigned depth> struct unroll_pre {
@@ -274,8 +273,8 @@ template <unsigned n_minus_ship_index, unsigned depth> struct unroll_pre {
 			ll sub_result =
 					unroll_pre<n_minus_ship_index - 1, depth - 1>::place_ship_pre(
 							validity_masks, currently_valid, params_list, num_valid_states);
-			//count += sub_result;
-			//state_frequency[ship_index][state_index] += sub_result;
+			// count += sub_result;
+			// state_frequency[ship_index][state_index] += sub_result;
 			// set currently_valid values back
 			for (int j = ship_index + 1; j < n; ++j)
 				currently_valid[j] = edits[j - ship_index - 1];
@@ -358,7 +357,6 @@ struct unroll_pre<n_minus_ship_index, 0u> {
 		params_list.push_back(currently_valid);
 	}
 };
-*/
 
 template <unsigned n_minus_ship_index, typename validity_masks_t,
 					typename validity_masks_offsets_t, typename currently_valid_t,
@@ -560,6 +558,26 @@ void count_occurrences(grid_t& misses) {
 	for (auto& subvec : state_frequency)
 		for (auto& elem : subvec)
 			state_frequency_unrolled.push_back(elem);
+
+	// currently_valid_sets is the result of a few levels of recursion
+	constexpr int PRE_DEPTH = min(2, n);
+	vector<place_ship_params> currently_valid_sets;
+	vector<pos_set> currently_valid_dupe = currently_valid;
+	unroll_pre<n, PRE_DEPTH>::place_ship_pre(validity_masks, currently_valid_dupe,
+																					 currently_valid_sets,
+																					 num_valid_states);
+	vector<pos_set> currently_valid_sets_unrolled;
+	for (auto& v : currently_valid_sets)
+		for (auto& ps : v)
+			currently_valid_sets_unrolled.push_back(ps);
+	// done TODO: turn unrolled back into not unrolled currently_valid_sets after
+	// completion
+	// TODO: use parallel_for on each contiguous subarray of
+	// currently_valid_sets_unrolled modulo n
+	// TODO: define PRE_DEPTH, and modify unroll<n> to be unroll<n-PRE_DEPTH>
+	// TODO: define subproblem_results for each entry in currently_valid_sets
+	vector<ll> subproblem_results(currently_valid_sets.size(), 0);
+
 	queue.submit([&](cl::sycl::handler& cgh) {
 		// validity masks
 		vector<pos_set> validity_masks_unrolled;
@@ -582,12 +600,13 @@ void count_occurrences(grid_t& misses) {
 		auto validity_masks_offsets_acc =
 				validity_masks_offsets_sycl.get_access<cl::sycl::access::mode::read>(
 						cgh);
-		// currently_valid
-		cl::sycl::buffer<pos_set> currently_valid_sycl(
-				currently_valid.data(), cl::sycl::range<1>(currently_valid.size()));
-		auto currently_valid_acc =
-				currently_valid_sycl.get_access<cl::sycl::access::mode::read_write>(
-						cgh);
+		// currently_valid sets
+		cl::sycl::buffer<pos_set> currently_valid_sets_sycl(
+				currently_valid_sets_unrolled.data(),
+				cl::sycl::range<1>(currently_valid_sets_unrolled.size()));
+		auto currently_valid_sets_acc =
+				currently_valid_sets_sycl
+						.get_access<cl::sycl::access::mode::read_write>(cgh);
 		// state_frequency_unrolled
 		cl::sycl::buffer<int> state_frequency_unrolled_sycl(
 				state_frequency_unrolled.data(),
@@ -635,6 +654,17 @@ void count_occurrences(grid_t& misses) {
 
 	// since buffers are destroyed, queue should wait until all operations using
 	// them have finished before continuing
+
+	// put currently_valid_sets_unrolled back into currently_valid_sets
+	int cvs_i = 0;
+	for (auto& s : currently_valid_sets)
+		for (auto& v : s)
+			v = currently_valid_sets_unrolled[cvs_i++];
+	// run place_ship_post
+	vector<pos_set> currently_valid_dupe_post = currently_valid;
+	unroll_post<n, PRE_DEPTH>::place_ship_post(
+			validity_masks, currently_valid_dupe_post, currently_valid_sets,
+			num_valid_states, subproblem_results);
 
 	// reverse unrolling of state_frequency now that gpu computation is done
 	int sf_i = 0;
