@@ -344,6 +344,12 @@ struct unroll_post<n_minus_ship_index, 0u> {
 									const vector<ll>& results, size_t& param_index) {
 		return results[param_index++];
 	}
+	static ll place_ship_post(
+			const vector<vector<vector<pos_set>>>& validity_masks,
+			vector<pos_set>& currently_valid, vector<vector<int>>& state_frequency,
+			const vector<int>& num_valid_states, const vector<ll>& results) {
+		return results[0];
+	}
 };
 
 template <unsigned n_minus_ship_index>
@@ -541,14 +547,7 @@ void count_occurrences(grid_t& misses) {
 	// unroll::place_ship starting at ship index of recursion level + 1, store
 	// each result in a results vector (and also store stuff in state_frequency)
 	// call unroll_post::place_ship_post with the results vector
-	//
-	// GPU stuff, currently just using single_task (pointless and bad)
-	ll total_states = 0;
-	cl::sycl::default_selector device_selector;
-	cl::sycl::queue queue(device_selector);
-	std::cout << "Running on "
-						<< queue.get_device().get_info<cl::sycl::info::device::name>()
-						<< endl;
+
 	// state_frequency is a 2d non-uniform vector by default (intentionally,
 	// don't want false sharing) need to unroll it before sending to gpu, then
 	// unroll it again
@@ -559,7 +558,7 @@ void count_occurrences(grid_t& misses) {
 			state_frequency_unrolled.push_back(elem);
 
 	// currently_valid_sets is the result of a few levels of recursion
-	constexpr int PRE_DEPTH = 2;
+	constexpr int PRE_DEPTH = 0;
 	vector<place_ship_params> currently_valid_sets;
 	vector<pos_set> currently_valid_dupe = currently_valid;
 	unroll_pre<n, PRE_DEPTH>::place_ship_pre(validity_masks, currently_valid_dupe,
@@ -569,89 +568,100 @@ void count_occurrences(grid_t& misses) {
 	for (auto& v : currently_valid_sets)
 		for (auto& ps : v)
 			currently_valid_sets_unrolled.push_back(ps);
+
 	// done TODO: turn unrolled back into not unrolled currently_valid_sets after
 	// completion
-	// TODO: use parallel_for on each contiguous subarray of
+	// done TODO: use parallel_for on each contiguous subarray of
 	// currently_valid_sets_unrolled modulo n
-	// TODO: define PRE_DEPTH, and modify unroll<n> to be unroll<n-PRE_DEPTH>
-	// TODO: define subproblem_results for each entry in currently_valid_sets
+	// done TODO: define PRE_DEPTH, and modify unroll<n> to be unroll<n-PRE_DEPTH>
+	// done TODO: define subproblem_results for each entry in currently_valid_sets
 	vector<ll> subproblem_results(currently_valid_sets.size(), 0);
 
-	queue.submit([&](cl::sycl::handler& cgh) {
-		// validity masks
-		vector<pos_set> validity_masks_unrolled;
-		vector<int> validity_masks_offsets; // where each first ship index starts
-		for (auto& sub1 : validity_masks) {
-			validity_masks_offsets.push_back(validity_masks_unrolled.size());
-			for (auto& sub2 : sub1)
-				for (auto& sub3 : sub2)
-					validity_masks_unrolled.push_back(sub3);
-		}
-		cl::sycl::buffer<pos_set> validity_masks_unrolled_sycl(
-				validity_masks_unrolled.data(),
-				cl::sycl::range<1>(validity_masks_unrolled.size()));
-		cl::sycl::buffer<int> validity_masks_offsets_sycl(
-				validity_masks_offsets.data(),
-				cl::sycl::range<1>(validity_masks_offsets.size()));
-		auto validity_masks_unrolled_acc =
-				validity_masks_unrolled_sycl.get_access<cl::sycl::access::mode::read>(
-						cgh);
-		auto validity_masks_offsets_acc =
-				validity_masks_offsets_sycl.get_access<cl::sycl::access::mode::read>(
-						cgh);
-		// currently_valid sets
-		cl::sycl::buffer<pos_set> currently_valid_sets_sycl(
-				currently_valid_sets_unrolled.data(),
-				cl::sycl::range<1>(currently_valid_sets_unrolled.size()));
-		auto currently_valid_sets_acc =
-				currently_valid_sets_sycl
-						.get_access<cl::sycl::access::mode::read_write>(cgh);
-		// state_frequency_unrolled
-		cl::sycl::buffer<int> state_frequency_unrolled_sycl(
-				state_frequency_unrolled.data(),
-				cl::sycl::range<1>(state_frequency_unrolled.size()));
-		auto state_frequency_unrolled_acc =
-				state_frequency_unrolled_sycl
-						.get_access<cl::sycl::access::mode::read_write>(cgh);
-		// total_states
-		cl::sycl::buffer<long long, 1> total_states_sycl(&total_states,
-																										 cl::sycl::range<1>(1));
-		auto total_states_acc =
-				total_states_sycl.get_access<cl::sycl::access::mode::read_write>(cgh);
-		// num_valid_states
-		cl::sycl::buffer<int> num_valid_states_sycl(
-				num_valid_states.data(), cl::sycl::range<1>(num_valid_states.size()));
-		auto num_valid_states_acc =
-				num_valid_states_sycl.get_access<cl::sycl::access::mode::read>(cgh);
+	ll total_states = 0;
+
+	{
+		cl::sycl::default_selector device_selector;
+		cl::sycl::queue queue(device_selector);
+		std::cout << "Running on "
+							<< queue.get_device().get_info<cl::sycl::info::device::name>()
+							<< endl;
+
 		// subproblem_results
 		cl::sycl::buffer<long long, 1> subproblem_results_sycl(
 				subproblem_results.data(),
 				cl::sycl::range<1>(subproblem_results.size()));
-		auto subproblem_results_acc =
-				subproblem_results_sycl
-						.get_access<cl::sycl::access::mode::discard_write>(cgh);
-		// TODO: convert this to parallel_for
-		cgh.parallel_for<class gpu_place_ship>(
-				cl::sycl::range<1>{subproblem_results.size()},
-				[=](cl::sycl::item<1> item_id) {
-					// TODO: fix false sharing with currently_valid_sets_acc
-					auto currently_valid_offset_acc =
-							&currently_valid_sets_acc[item_id.get_id(0) * n];
-					subproblem_results_acc[item_id.get_id(0)] =
-							unroll_gpu<n - PRE_DEPTH, decltype(validity_masks_unrolled_acc),
-												 decltype(validity_masks_offsets_acc),
-												 decltype(currently_valid_offset_acc),
-												 decltype(state_frequency_unrolled_acc),
-												 decltype(num_valid_states_acc)>::
-									place_ship_gpu(
-											validity_masks_unrolled_acc, validity_masks_offsets_acc,
-											currently_valid_offset_acc, state_frequency_unrolled_acc,
-											num_valid_states_acc, 0);
-				});
-	});
+		queue.submit([&](cl::sycl::handler& cgh) {
+			auto subproblem_results_acc =
+					subproblem_results_sycl
+							.get_access<cl::sycl::access::mode::read_write>(cgh);
+			// validity masks
+			vector<pos_set> validity_masks_unrolled;
+			vector<int> validity_masks_offsets; // where each first ship index starts
+			for (auto& sub1 : validity_masks) {
+				validity_masks_offsets.push_back(validity_masks_unrolled.size());
+				for (auto& sub2 : sub1)
+					for (auto& sub3 : sub2)
+						validity_masks_unrolled.push_back(sub3);
+			}
+			cl::sycl::buffer<pos_set> validity_masks_unrolled_sycl(
+					validity_masks_unrolled.data(),
+					cl::sycl::range<1>(validity_masks_unrolled.size()));
+			cl::sycl::buffer<int> validity_masks_offsets_sycl(
+					validity_masks_offsets.data(),
+					cl::sycl::range<1>(validity_masks_offsets.size()));
+			auto validity_masks_unrolled_acc =
+					validity_masks_unrolled_sycl.get_access<cl::sycl::access::mode::read>(
+							cgh);
+			auto validity_masks_offsets_acc =
+					validity_masks_offsets_sycl.get_access<cl::sycl::access::mode::read>(
+							cgh);
+			// currently_valid sets
+			cl::sycl::buffer<pos_set> currently_valid_sets_sycl(
+					currently_valid_sets_unrolled.data(),
+					cl::sycl::range<1>(currently_valid_sets_unrolled.size()));
+			auto currently_valid_sets_acc =
+					currently_valid_sets_sycl
+							.get_access<cl::sycl::access::mode::read_write>(cgh);
+			// state_frequency_unrolled
+			cl::sycl::buffer<int> state_frequency_unrolled_sycl(
+					state_frequency_unrolled.data(),
+					cl::sycl::range<1>(state_frequency_unrolled.size()));
+			auto state_frequency_unrolled_acc =
+					state_frequency_unrolled_sycl
+							.get_access<cl::sycl::access::mode::read_write>(cgh);
+			// total_states
+			cl::sycl::buffer<long long, 1> total_states_sycl(&total_states,
+																											 cl::sycl::range<1>(1));
+			auto total_states_acc =
+					total_states_sycl.get_access<cl::sycl::access::mode::read_write>(cgh);
+			// num_valid_states
+			cl::sycl::buffer<int> num_valid_states_sycl(
+					num_valid_states.data(), cl::sycl::range<1>(num_valid_states.size()));
+			auto num_valid_states_acc =
+					num_valid_states_sycl.get_access<cl::sycl::access::mode::read>(cgh);
+			// TODO: convert this to parallel_for
+			cgh.parallel_for<class gpu_place_ship>(
+					cl::sycl::range<1>{subproblem_results.size()},
+					[=](cl::sycl::id<1> item_id) {
+						// TODO: fix false sharing with currently_valid_sets_acc
+						auto currently_valid_offset_acc =
+								&currently_valid_sets_acc[item_id * n];
+						subproblem_results_acc[item_id] =
+								unroll_gpu<n - PRE_DEPTH, decltype(validity_masks_unrolled_acc),
+													 decltype(validity_masks_offsets_acc),
+													 decltype(currently_valid_offset_acc),
+													 decltype(state_frequency_unrolled_acc),
+													 decltype(num_valid_states_acc)>::
+										place_ship_gpu(
+												validity_masks_unrolled_acc, validity_masks_offsets_acc,
+												currently_valid_offset_acc,
+												state_frequency_unrolled_acc, num_valid_states_acc, 0);
+					});
+		});
+	}
 
-	// since buffers are destroyed, queue should wait until all operations using
-	// them have finished before continuing
+	// since buffers (and the queue?) are destroyed, queue should wait until all
+	// operations using them have finished before continuing
 
 	// put currently_valid_sets_unrolled back into currently_valid_sets
 	int cvs_i = 0;
