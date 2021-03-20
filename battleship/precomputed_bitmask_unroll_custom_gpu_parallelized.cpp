@@ -633,6 +633,11 @@ void count_occurrences(grid_t& misses) {
 			auto state_frequency_unrolled_arr_acc =
 					state_frequency_unrolled_arr_sycl
 							.get_access<cl::sycl::access::mode::read_write>(cgh);
+			auto sf_size = state_frequency_unrolled.size();
+			cl::sycl::buffer<decltype(sf_size)> sf_size_sycl(&sf_size,
+																											 cl::sycl::range<1>(1));
+			auto sf_size_acc =
+					sf_size_sycl.get_access<cl::sycl::access::mode::read>(cgh);
 			/*
 			cl::sycl::buffer<ll> state_frequency_unrolled_sycl(
 					state_frequency_unrolled.data(),
@@ -662,7 +667,7 @@ void count_occurrences(grid_t& misses) {
 						auto currently_valid_offset_acc =
 								&currently_valid_sets_acc[item_id * n];
 						auto state_frequency_unrolled_acc =
-								&state_frequency_unrolled_arr_acc[item_id];
+								&state_frequency_unrolled_arr_acc[item_id * sf_size_acc[0]];
 						subproblem_results_acc[item_id] =
 								unroll_gpu<n - PRE_DEPTH, decltype(validity_masks_unrolled_acc),
 													 decltype(validity_masks_offsets_acc),
@@ -679,6 +684,7 @@ void count_occurrences(grid_t& misses) {
 
 	// since buffers (and the queue?) are destroyed, queue should wait until all
 	// operations using them have finished before continuing
+	cout << "now done gpu stuff" << endl;
 
 	// put currently_valid_sets_unrolled back into currently_valid_sets
 	int cvs_i = 0;
@@ -693,8 +699,10 @@ void count_occurrences(grid_t& misses) {
 
 	// reverse unrolling of state_frequency now that gpu computation is done
 	int sfu_i = 0;
-	for (auto& copy : state_frequency_unrolled_arr)
+	for (auto& copy : state_frequency_unrolled_arr) {
 		state_frequency_unrolled[sfu_i++] += copy;
+		sfu_i %= state_frequency_unrolled.size();
+	}
 	int sf_i = 0;
 	for (auto& subvec : state_frequency)
 		for (auto& elem : subvec)
