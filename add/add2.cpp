@@ -6,10 +6,10 @@ class vector_exp;
 
 int main(int, char**) {
 	std::vector<int> a;
-	int MAG = 1000000;
+	int MAG = 20;
 	for (int i = 0; i < MAG; ++i)
 		a.emplace_back(2);
-	int n = 100000;
+	int n = 2;
 	// compute a^n % 1e7+3 (without using squaring exp)
 	const int MOD = 1e6 + 3;
 

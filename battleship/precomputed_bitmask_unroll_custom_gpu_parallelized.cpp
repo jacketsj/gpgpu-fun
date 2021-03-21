@@ -6,8 +6,8 @@ typedef long long ll;
 
 // CONSTANTS
 // board dimensions
-#define WIDTH 5
-#define HEIGHT 5
+#define WIDTH 10
+#define HEIGHT 10
 /*
 #define WIDTH 10
 #define HEIGHT 10

@@ -1,3 +1,5 @@
 add_executable(add add.cpp)
+add_executable(add2 add2.cpp)
 add_sycl_to_target(TARGET add SOURCES add.cpp)
+add_sycl_to_target(TARGET add2 SOURCES add2.cpp)
 #install(TARGETS add RUNTIME DESTINATION share/hipSYCL/examples/)

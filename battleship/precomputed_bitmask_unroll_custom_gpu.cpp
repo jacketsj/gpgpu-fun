@@ -606,6 +606,7 @@ void count_occurrences(grid_t& misses) {
 		auto num_valid_states_acc =
 				num_valid_states_sycl.get_access<cl::sycl::access::mode::read>(cgh);
 		// TODO: convert this to parallel_for
+		// TODO: should make use of the unroll_pre and unroll_post things
 		cgh.single_task<class bad_gpu_place_ship>([=]() {
 			// need to get these 'vector's onto the gpu (does the gpu even support
 			// vector types?)
