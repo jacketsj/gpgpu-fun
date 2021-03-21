@@ -642,6 +642,9 @@ void count_occurrences(grid_t& misses) {
 			auto sf_size_acc =
 					sf_size_sycl.get_access<cl::sycl::access::mode::read>(cgh);
 			assert(sf_size == sum_of_valid_states); // TODO: Delete this assert later
+			size_t state_frequency_base_offset = 0;
+			for (int i = 0; i < PRE_DEPTH; ++i)
+				state_frequency_base_offset += num_valid_states[i];
 			/*
 			cl::sycl::buffer<ll> state_frequency_unrolled_sycl(
 					state_frequency_unrolled.data(),
@@ -661,7 +664,6 @@ void count_occurrences(grid_t& misses) {
 			auto num_valid_states_acc =
 					num_valid_states_sycl.get_access<cl::sycl::access::mode::read>(cgh);
 			// TODO: convert this to parallel_for
-			// I believe there is still some shared memory problem
 			cgh.parallel_for<class gpu_place_ship>(
 					cl::sycl::range<1>{subproblem_results.size()},
 					[=](cl::sycl::item<1> item_id) {
@@ -685,7 +687,8 @@ void count_occurrences(grid_t& misses) {
 												validity_masks_unrolled_acc, validity_masks_offsets_acc,
 												currently_valid_offset_acc,
 												state_frequency_unrolled_arr_acc, num_valid_states_acc,
-												size_t(item_id.get_id(0) * sf_size_acc[0]));
+												state_frequency_base_offset +
+														size_t(item_id.get_id(0) * sf_size_acc[0]));
 					});
 		});
 	}
@@ -695,10 +698,14 @@ void count_occurrences(grid_t& misses) {
 	cout << "now done gpu stuff" << endl;
 
 	// put currently_valid_sets_unrolled back into currently_valid_sets
+	// removed since I never use currently_valid_sets again
+	/*
 	int cvs_i = 0;
 	for (auto& s : currently_valid_sets)
 		for (auto& v : s)
 			v = currently_valid_sets_unrolled[cvs_i++];
+	*/
+
 	// run place_ship_post
 	auto currently_valid_dupe_post = currently_valid;
 	total_states = unroll_post<n, PRE_DEPTH>::place_ship_post(
