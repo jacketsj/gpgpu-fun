@@ -558,12 +558,13 @@ void count_occurrences(grid_t& misses) {
 			state_frequency_unrolled.push_back(elem);
 
 	// currently_valid_sets is the result of a few levels of recursion
-	constexpr int PRE_DEPTH = 1;
+	constexpr int PRE_DEPTH = 2;
 	vector<place_ship_params> currently_valid_sets;
 	vector<pos_set> currently_valid_dupe = currently_valid;
 	unroll_pre<n, PRE_DEPTH>::place_ship_pre(validity_masks, currently_valid_dupe,
 																					 currently_valid_sets,
 																					 num_valid_states);
+	cout << "Total parallelism: " << currently_valid_sets.size() << endl;
 	vector<pos_set> currently_valid_sets_unrolled;
 	for (auto& v : currently_valid_sets)
 		for (auto& ps : v)
