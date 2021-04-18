@@ -507,75 +507,18 @@ void print_grid_chance(const grid_t& a, const ll& added_count) {
 			cout << double(a[x + y * WIDTH]) / count << "\t\n"[x == WIDTH - 1];
 }
 
-// list of hits not currently supported, need to derive new algorithm
-// count the number of occurrences of each spot on the grid
-// do this by counting the frequency of each position for each ship
-void count_occurrences(grid_t& misses) {
-	vector<vector<int>> valid_states = find_valid_states(misses);
-	// count the number of valid states, to be used when placing ships
-	vector<int> num_valid_states(n);
-	for (int i = 0; i < n; ++i)
-		num_valid_states[i] = valid_states[i].size();
-
-	// validity masks: given a ship, a state, and a future ship, provides the mask
-	// for that ship
-	vector<vector<vector<pos_set>>> validity_masks =
-			find_all_pos_sets(valid_states);
-
-	vector<pos_set> currently_valid(
-			n); // for each ship, keep track of which states are still valid
-	for (int i = 0; i < n; ++i)
-		for (int state_i = 0; state_i < num_valid_states[i]; ++state_i)
-			currently_valid[i].set(state_i);
-
-	vector<vector<int>> state_frequency(
-			n); // for each ship, keep the frequency of each of its states
-	for (int i = 0; i < n; ++i) {
-		state_frequency[i].resize(num_valid_states[i]);
-		for (auto& v :
-				 state_frequency[i]) // TODO does this help get rid of garbage data??
-			v = 0;
-	}
-
-	// ll total_successful = 0;
-	// call recursive ship placement routine to iterate through all valid
-	// placements
-
-	// procedure plan:
-	// call unroll_pre::place_ship_pre, which creates a list of
-	// 'currently_valid' params for unroll::place_ship parallel_for on
-	// unroll::place_ship starting at ship index of recursion level + 1, store
-	// each result in a results vector (and also store stuff in state_frequency)
-	// call unroll_post::place_ship_post with the results vector
-
-	// state_frequency is a 2d non-uniform vector by default (intentionally,
-	// don't want false sharing) need to unroll it before sending to gpu, then
-	// unroll it again
-	// can be reversed by using num_valid_states vector
-	vector<int> state_frequency_unrolled;
-	for (auto& subvec : state_frequency)
-		for (auto& elem : subvec)
-			state_frequency_unrolled.push_back(elem);
-
-	// currently_valid_sets is the result of a few levels of recursion
-	constexpr int PRE_DEPTH = 3;
-	vector<place_ship_params> currently_valid_sets;
-	vector<pos_set> currently_valid_dupe = currently_valid;
-	unroll_pre<n, PRE_DEPTH>::place_ship_pre(validity_masks, currently_valid_dupe,
-																					 currently_valid_sets,
-																					 num_valid_states);
-	cout << "Total parallelism: " << currently_valid_sets.size() << endl;
+template <int PRE_DEPTH>
+void process_job(vector<place_ship_params> currently_valid_sets,
+								 vector<int>& state_frequency_unrolled,
+								 vector<int>& num_valid_states,
+								 vector<vector<vector<pos_set>>>& validity_masks,
+								 vector<pos_set>& currently_valid,
+								 vector<vector<int>>& state_frequency, ll& total_states) {
 	vector<pos_set> currently_valid_sets_unrolled;
 	for (auto& v : currently_valid_sets)
 		for (auto& ps : v)
 			currently_valid_sets_unrolled.push_back(ps);
 
-	// done TODO: turn unrolled back into not unrolled currently_valid_sets after
-	// completion
-	// done TODO: use parallel_for on each contiguous subarray of
-	// currently_valid_sets_unrolled modulo n
-	// done TODO: define PRE_DEPTH, and modify unroll<n> to be unroll<n-PRE_DEPTH>
-	// done TODO: define subproblem_results for each entry in currently_valid_sets
 	vector<ll> subproblem_results(currently_valid_sets.size(), 0);
 
 	// TODO: subproblem_results.size() copies of state_frequency_unrolled
@@ -585,17 +528,12 @@ void count_occurrences(grid_t& misses) {
 	for (auto& s : num_valid_states)
 		sum_of_valid_states += s;
 
-	ll total_states = 0;
-
 	{
 		cl::sycl::default_selector device_selector;
 		cl::sycl::queue queue(device_selector);
 		std::cout << "Running on "
 							<< queue.get_device().get_info<cl::sycl::info::device::name>()
 							<< endl;
-
-		size_t subproblem_range_l = 0;
-		size_t subproblem_range_r = subproblem_results.size();
 
 		// subproblem_results
 		cl::sycl::buffer<long long, 1> subproblem_results_sycl(
@@ -614,16 +552,8 @@ void count_occurrences(grid_t& misses) {
 					for (auto& sub3 : sub2)
 						validity_masks_unrolled.push_back(sub3);
 			}
-			// TODO make this valid syntax, and use it
-			auto get_left = [&](auto& vec) {
-				vec.data() +
-						subproblem_range_l*(vec.size() / subproblem_results.size()) *
-								sizeof(T),
-			};
 			cl::sycl::buffer<pos_set> validity_masks_unrolled_sycl(
-					validity_masks_unrolled.data() + // TODO use it here
-							subproblem_range_l *
-									(validity_masks_unrolled.size() / subproblem_results.size()),
+					validity_masks_unrolled.data(),
 					cl::sycl::range<1>(validity_masks_unrolled.size()));
 			cl::sycl::buffer<int> validity_masks_offsets_sycl(
 					validity_masks_offsets.data(),
@@ -734,6 +664,72 @@ void count_occurrences(grid_t& misses) {
 	for (auto& subvec : state_frequency)
 		for (auto& elem : subvec)
 			elem += state_frequency_unrolled[sf_i++];
+}
+
+// list of hits not currently supported, need to derive new algorithm
+// count the number of occurrences of each spot on the grid
+// do this by counting the frequency of each position for each ship
+void count_occurrences(grid_t& misses) {
+	vector<vector<int>> valid_states = find_valid_states(misses);
+	// count the number of valid states, to be used when placing ships
+	vector<int> num_valid_states(n);
+	for (int i = 0; i < n; ++i)
+		num_valid_states[i] = valid_states[i].size();
+
+	// validity masks: given a ship, a state, and a future ship, provides the mask
+	// for that ship
+	vector<vector<vector<pos_set>>> validity_masks =
+			find_all_pos_sets(valid_states);
+
+	vector<pos_set> currently_valid(
+			n); // for each ship, keep track of which states are still valid
+	for (int i = 0; i < n; ++i)
+		for (int state_i = 0; state_i < num_valid_states[i]; ++state_i)
+			currently_valid[i].set(state_i);
+
+	vector<vector<int>> state_frequency(
+			n); // for each ship, keep the frequency of each of its states
+	for (int i = 0; i < n; ++i) {
+		state_frequency[i].resize(num_valid_states[i]);
+		for (auto& v :
+				 state_frequency[i]) // TODO does this help get rid of garbage data??
+			v = 0;
+	}
+
+	// ll total_successful = 0;
+	// call recursive ship placement routine to iterate through all valid
+	// placements
+
+	// procedure plan:
+	// call unroll_pre::place_ship_pre, which creates a list of
+	// 'currently_valid' params for unroll::place_ship parallel_for on
+	// unroll::place_ship starting at ship index of recursion level + 1, store
+	// each result in a results vector (and also store stuff in state_frequency)
+	// call unroll_post::place_ship_post with the results vector
+
+	// state_frequency is a 2d non-uniform vector by default (intentionally,
+	// don't want false sharing) need to unroll it before sending to gpu, then
+	// unroll it again
+	// can be reversed by using num_valid_states vector
+	vector<int> state_frequency_unrolled;
+	for (auto& subvec : state_frequency)
+		for (auto& elem : subvec)
+			state_frequency_unrolled.push_back(elem);
+
+	// currently_valid_sets is the result of a few levels of recursion
+	constexpr int PRE_DEPTH = 3;
+	vector<place_ship_params> currently_valid_sets;
+	vector<pos_set> currently_valid_dupe = currently_valid;
+	unroll_pre<n, PRE_DEPTH>::place_ship_pre(validity_masks, currently_valid_dupe,
+																					 currently_valid_sets,
+																					 num_valid_states);
+	cout << "Total parallelism: " << currently_valid_sets.size() << endl;
+
+	ll total_states = 0;
+	// TODO Now: Parition and job-ify currently_valid_sets
+	process_job<PRE_DEPTH>(currently_valid_sets, state_frequency_unrolled,
+												 num_valid_states, validity_masks, currently_valid,
+												 state_frequency, total_states);
 
 	grid_t frequencies = create_grid();
 	for (int i = 0; i < n; ++i)
