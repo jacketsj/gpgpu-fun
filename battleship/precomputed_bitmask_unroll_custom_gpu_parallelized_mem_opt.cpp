@@ -594,6 +594,9 @@ void count_occurrences(grid_t& misses) {
 							<< queue.get_device().get_info<cl::sycl::info::device::name>()
 							<< endl;
 
+		size_t subproblem_range_l = 0;
+		size_t subproblem_range_r = subproblem_results.size();
+
 		// subproblem_results
 		cl::sycl::buffer<long long, 1> subproblem_results_sycl(
 				subproblem_results.data(),
@@ -611,8 +614,16 @@ void count_occurrences(grid_t& misses) {
 					for (auto& sub3 : sub2)
 						validity_masks_unrolled.push_back(sub3);
 			}
+			// TODO make this valid syntax, and use it
+			auto get_left = [&](auto& vec) {
+				vec.data() +
+						subproblem_range_l*(vec.size() / subproblem_results.size()) *
+								sizeof(T),
+			};
 			cl::sycl::buffer<pos_set> validity_masks_unrolled_sycl(
-					validity_masks_unrolled.data(),
+					validity_masks_unrolled.data() + // TODO use it here
+							subproblem_range_l *
+									(validity_masks_unrolled.size() / subproblem_results.size()),
 					cl::sycl::range<1>(validity_masks_unrolled.size()));
 			cl::sycl::buffer<int> validity_masks_offsets_sycl(
 					validity_masks_offsets.data(),
