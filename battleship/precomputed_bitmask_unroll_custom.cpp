@@ -5,8 +5,8 @@ typedef long long ll;
 
 // CONSTANTS
 // board dimensions
-#define WIDTH 10
-#define HEIGHT 10
+#define WIDTH 3
+#define HEIGHT 3
 /*
 #define WIDTH 10
 #define HEIGHT 10
@@ -14,8 +14,8 @@ typedef long long ll;
 const vector<int> lengths = {2,3,3,4,5};
 */
 // const vector<int> lengths = {5,4,3,3,2};
-const vector<int> lengths = {5, 4, 3, 3, 2};
-#define n 5
+const vector<int> lengths = {3, 2};
+#define n 2
 
 typedef unsigned long long ull;
 // typedef uint64_t ull;

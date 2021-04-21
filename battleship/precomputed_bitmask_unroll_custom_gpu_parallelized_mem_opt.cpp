@@ -6,8 +6,8 @@ typedef long long ll;
 
 // CONSTANTS
 // board dimensions
-#define WIDTH 10
-#define HEIGHT 10
+#define WIDTH 3
+#define HEIGHT 3
 /*
 #define WIDTH 10
 #define HEIGHT 10
@@ -15,8 +15,8 @@ typedef long long ll;
 const vector<int> lengths = {2,3,3,4,5};
 */
 // const vector<int> lengths = {5,4,3,3,2};
-const vector<int> lengths = {5, 4, 3, 3, 2};
-#define n 5
+const vector<int> lengths = {3, 2};
+#define n 2
 
 typedef unsigned long long ull;
 // typedef uint64_t ull;
@@ -510,10 +510,10 @@ void print_grid_chance(const grid_t& a, const ll& added_count) {
 template <int PRE_DEPTH>
 void process_job(vector<place_ship_params> currently_valid_sets,
 								 vector<int>& state_frequency_unrolled,
-								 vector<int>& num_valid_states,
-								 vector<vector<vector<pos_set>>>& validity_masks,
-								 vector<pos_set>& currently_valid,
-								 vector<vector<int>>& state_frequency, ll& total_states) {
+								 const vector<int>& num_valid_states,
+								 const vector<vector<vector<pos_set>>>& validity_masks,
+								 vector<pos_set> currently_valid,
+								 vector<ll>& actual_subproblem_results, int actual_offset) {
 	vector<pos_set> currently_valid_sets_unrolled;
 	for (auto& v : currently_valid_sets)
 		for (auto& ps : v)
@@ -521,9 +521,10 @@ void process_job(vector<place_ship_params> currently_valid_sets,
 
 	vector<ll> subproblem_results(currently_valid_sets.size(), 0);
 
-	// TODO: subproblem_results.size() copies of state_frequency_unrolled
-	vector<ll> state_frequency_unrolled_arr(
+	// subproblem_results.size() copies of state_frequency_unrolled
+	vector<int> state_frequency_unrolled_arr(
 			state_frequency_unrolled.size() * subproblem_results.size(), 0);
+
 	size_t sum_of_valid_states = 0;
 	for (auto& s : num_valid_states)
 		sum_of_valid_states += s;
@@ -572,7 +573,7 @@ void process_job(vector<place_ship_params> currently_valid_sets,
 					currently_valid_sets_sycl
 							.get_access<cl::sycl::access::mode::read_write>(cgh);
 			// state_frequency_unrolled copies
-			cl::sycl::buffer<ll> state_frequency_unrolled_arr_sycl(
+			cl::sycl::buffer<int> state_frequency_unrolled_arr_sycl(
 					state_frequency_unrolled_arr.data(),
 					cl::sycl::range<1>(state_frequency_unrolled_arr.size()));
 			auto state_frequency_unrolled_arr_acc =
@@ -595,11 +596,6 @@ void process_job(vector<place_ship_params> currently_valid_sets,
 					state_frequency_unrolled_sycl
 							.get_access<cl::sycl::access::mode::read_write>(cgh);
 			*/
-			// total_states
-			cl::sycl::buffer<long long, 1> total_states_sycl(&total_states,
-																											 cl::sycl::range<1>(1));
-			auto total_states_acc =
-					total_states_sycl.get_access<cl::sycl::access::mode::read_write>(cgh);
 			// num_valid_states
 			cl::sycl::buffer<int> num_valid_states_sycl(
 					num_valid_states.data(), cl::sycl::range<1>(num_valid_states.size()));
@@ -639,6 +635,13 @@ void process_job(vector<place_ship_params> currently_valid_sets,
 	// operations using them have finished before continuing
 	cout << "now done gpu stuff" << endl;
 
+	// merge results of individual jobs
+	int sfu_i = 0;
+	for (auto& copy : state_frequency_unrolled_arr) {
+		state_frequency_unrolled[sfu_i++] += copy;
+		sfu_i %= state_frequency_unrolled.size();
+	}
+
 	// put currently_valid_sets_unrolled back into currently_valid_sets
 	// removed since I never use currently_valid_sets again
 	/*
@@ -648,22 +651,9 @@ void process_job(vector<place_ship_params> currently_valid_sets,
 			v = currently_valid_sets_unrolled[cvs_i++];
 	*/
 
-	// run place_ship_post
-	auto currently_valid_dupe_post = currently_valid;
-	total_states = unroll_post<n, PRE_DEPTH>::place_ship_post(
-			validity_masks, currently_valid_dupe_post, state_frequency,
-			num_valid_states, subproblem_results);
-
-	// reverse unrolling of state_frequency now that gpu computation is done
-	int sfu_i = 0;
-	for (auto& copy : state_frequency_unrolled_arr) {
-		state_frequency_unrolled[sfu_i++] += copy;
-		sfu_i %= state_frequency_unrolled.size();
+	for (int i = 0; i < subproblem_results.size(); ++i) {
+		actual_subproblem_results[actual_offset + i] = subproblem_results[i];
 	}
-	int sf_i = 0;
-	for (auto& subvec : state_frequency)
-		for (auto& elem : subvec)
-			elem += state_frequency_unrolled[sf_i++];
 }
 
 // list of hits not currently supported, need to derive new algorithm
@@ -717,7 +707,7 @@ void count_occurrences(grid_t& misses) {
 			state_frequency_unrolled.push_back(elem);
 
 	// currently_valid_sets is the result of a few levels of recursion
-	constexpr int PRE_DEPTH = 3;
+	constexpr int PRE_DEPTH = 1;
 	vector<place_ship_params> currently_valid_sets;
 	vector<pos_set> currently_valid_dupe = currently_valid;
 	unroll_pre<n, PRE_DEPTH>::place_ship_pre(validity_masks, currently_valid_dupe,
@@ -727,9 +717,37 @@ void count_occurrences(grid_t& misses) {
 
 	ll total_states = 0;
 	// TODO Now: Parition and job-ify currently_valid_sets
-	process_job<PRE_DEPTH>(currently_valid_sets, state_frequency_unrolled,
-												 num_valid_states, validity_masks, currently_valid,
-												 state_frequency, total_states);
+	vector<ll> subproblem_results(currently_valid_sets.size(), 0);
+	constexpr int total_splits = 4;
+	for (int split = 0; split < total_splits; ++split) {
+		int split_l = split * currently_valid_sets.size() / total_splits;
+		int split_r = min((split + 1) * currently_valid_sets.size() / total_splits,
+											currently_valid_sets.size());
+		// int split_r = split_l + currently_valid_sets.size() / total_splits;
+		printf("Batch %d: [%d to %d)\n", split, split_l, split_r);
+		vector<place_ship_params> currently_valid_sets_sub(
+				currently_valid_sets.begin() + split_l,
+				currently_valid_sets.begin() + split_r);
+		process_job<PRE_DEPTH>(currently_valid_sets_sub, state_frequency_unrolled,
+													 num_valid_states, validity_masks, currently_valid,
+													 subproblem_results, split_l);
+	}
+
+	// reverse unrolling of state_frequency now that gpu computation is done
+	int sf_i = 0;
+	for (auto& subvec : state_frequency)
+		for (auto& elem : subvec)
+			elem += state_frequency_unrolled[sf_i++];
+
+	// process_job<PRE_DEPTH>(currently_valid_sets, state_frequency_unrolled,
+	//											 num_valid_states, validity_masks, currently_valid,
+	//											 state_frequency, total_states);
+
+	// run place_ship_post
+	auto currently_valid_dupe_post = currently_valid;
+	total_states = unroll_post<n, PRE_DEPTH>::place_ship_post(
+			validity_masks, currently_valid_dupe_post, state_frequency,
+			num_valid_states, subproblem_results);
 
 	grid_t frequencies = create_grid();
 	for (int i = 0; i < n; ++i)
