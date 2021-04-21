@@ -6,8 +6,8 @@ typedef long long ll;
 
 // CONSTANTS
 // board dimensions
-#define WIDTH 3
-#define HEIGHT 3
+#define WIDTH 10
+#define HEIGHT 10
 /*
 #define WIDTH 10
 #define HEIGHT 10
@@ -15,8 +15,8 @@ typedef long long ll;
 const vector<int> lengths = {2,3,3,4,5};
 */
 // const vector<int> lengths = {5,4,3,3,2};
-const vector<int> lengths = {3, 2};
-#define n 2
+const vector<int> lengths = {5, 4, 3, 3, 2};
+#define n 5
 
 typedef unsigned long long ull;
 // typedef uint64_t ull;
@@ -707,7 +707,7 @@ void count_occurrences(grid_t& misses) {
 			state_frequency_unrolled.push_back(elem);
 
 	// currently_valid_sets is the result of a few levels of recursion
-	constexpr int PRE_DEPTH = 1;
+	constexpr int PRE_DEPTH = 3;
 	vector<place_ship_params> currently_valid_sets;
 	vector<pos_set> currently_valid_dupe = currently_valid;
 	unroll_pre<n, PRE_DEPTH>::place_ship_pre(validity_masks, currently_valid_dupe,
