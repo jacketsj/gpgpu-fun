@@ -519,6 +519,10 @@ void process_job(vector<place_ship_params> currently_valid_sets,
 		for (auto& ps : v)
 			currently_valid_sets_unrolled.push_back(ps);
 
+	cout << "Currently valid sets unrolled size: "
+			 << currently_valid_sets_unrolled.size() << '*'
+			 << sizeof(currently_valid_sets_unrolled[0]) << endl;
+
 	vector<ll> subproblem_results(currently_valid_sets.size(), 0);
 
 	// subproblem_results.size() copies of state_frequency_unrolled
@@ -536,11 +540,33 @@ void process_job(vector<place_ship_params> currently_valid_sets,
 							<< queue.get_device().get_info<cl::sycl::info::device::name>()
 							<< endl;
 
-		// subproblem_results
-		cl::sycl::buffer<long long, 1> subproblem_results_sycl(
-				subproblem_results.data(),
-				cl::sycl::range<1>(subproblem_results.size()));
+		// getting the total number of compute units
+		auto num_groups =
+				queue.get_device()
+						.get_info<cl::sycl::info::device::max_compute_units>();
+		// getting the maximum work group size per thread
+		auto work_group_size =
+				queue.get_device()
+						.get_info<cl::sycl::info::device::max_work_group_size>();
+		// building the best number of global thread
+		auto total_threads = num_groups * work_group_size;
+
+		cout << "Total threads available via GPU: " << num_groups << '*'
+				 << work_group_size << '=' << total_threads << endl;
+
+		// currently_valid sets
+		cl::sycl::buffer<pos_set> currently_valid_sets_sycl(
+				currently_valid_sets_unrolled.data(),
+				cl::sycl::range<1>(currently_valid_sets_unrolled.size()));
 		queue.submit([&](cl::sycl::handler& cgh) {
+			auto currently_valid_sets_acc =
+					currently_valid_sets_sycl
+							.get_access<cl::sycl::access::mode::read_write>(cgh);
+
+			// subproblem_results
+			cl::sycl::buffer<long long, 1> subproblem_results_sycl(
+					subproblem_results.data(),
+					cl::sycl::range<1>(subproblem_results.size()));
 			auto subproblem_results_acc =
 					subproblem_results_sycl
 							.get_access<cl::sycl::access::mode::read_write>(cgh);
@@ -565,13 +591,6 @@ void process_job(vector<place_ship_params> currently_valid_sets,
 			auto validity_masks_offsets_acc =
 					validity_masks_offsets_sycl.get_access<cl::sycl::access::mode::read>(
 							cgh);
-			// currently_valid sets
-			cl::sycl::buffer<pos_set> currently_valid_sets_sycl(
-					currently_valid_sets_unrolled.data(),
-					cl::sycl::range<1>(currently_valid_sets_unrolled.size()));
-			auto currently_valid_sets_acc =
-					currently_valid_sets_sycl
-							.get_access<cl::sycl::access::mode::read_write>(cgh);
 			// state_frequency_unrolled copies
 			cl::sycl::buffer<int> state_frequency_unrolled_arr_sycl(
 					state_frequency_unrolled_arr.data(),
@@ -605,7 +624,6 @@ void process_job(vector<place_ship_params> currently_valid_sets,
 			cgh.parallel_for<class gpu_place_ship>(
 					cl::sycl::range<1>{subproblem_results.size()},
 					[=](cl::sycl::item<1> item_id) {
-						// TODO: fix false sharing with currently_valid_sets_acc
 						pos_set currently_valid[n];
 						for (int i = 0; i < n; ++i)
 							currently_valid[i] =
@@ -707,7 +725,7 @@ void count_occurrences(grid_t& misses) {
 			state_frequency_unrolled.push_back(elem);
 
 	// currently_valid_sets is the result of a few levels of recursion
-	constexpr int PRE_DEPTH = 3;
+	constexpr int PRE_DEPTH = 2;
 	vector<place_ship_params> currently_valid_sets;
 	vector<pos_set> currently_valid_dupe = currently_valid;
 	unroll_pre<n, PRE_DEPTH>::place_ship_pre(validity_masks, currently_valid_dupe,
