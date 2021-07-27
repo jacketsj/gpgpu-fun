@@ -248,7 +248,7 @@ template <unsigned n_minus_ship_index, unsigned depth> struct unroll_pre {
 								 vector<pos_set>& currently_valid,
 								 vector<place_ship_params>& params_list,
 								 const vector<int>& num_valid_states) {
-		int ship_index = n - n_minus_ship_index;
+		constexpr int ship_index = n - n_minus_ship_index;
 
 		// Save the information about currently_valid that we will need when we
 		// return from recursive calls
@@ -289,7 +289,7 @@ template <unsigned n_minus_ship_index, unsigned depth> struct unroll_post {
 									vector<vector<int>>& state_frequency,
 									const vector<int>& num_valid_states,
 									const vector<ll>& results, size_t& param_index) {
-		int ship_index = n - n_minus_ship_index;
+		constexpr int ship_index = n - n_minus_ship_index;
 
 		// Save the information about currently_valid that we will need when we
 		// return from recursive calls
@@ -376,7 +376,7 @@ struct unroll_gpu {
 													 state_frequency_t state_frequency,
 													 num_valid_states_t num_valid_states,
 													 size_t state_offset) {
-		int ship_index = n - n_minus_ship_index; // const int?
+		constexpr int ship_index = n - n_minus_ship_index; // const int?
 
 		// Save the information about currently_valid that we will need when we
 		// return from recursive calls
@@ -384,7 +384,9 @@ struct unroll_gpu {
 		// count of the number of valid placements of all remaining ships
 		ll count = 0;
 
-		pos_set edits[n - ship_index - 1];
+		pos_set edits[n - ship_index]; // TODO: this should have a -1, but it causes
+																	 // problems cause on the last call the size
+																	 // is 0 (which is expected)
 		for (int j = ship_index + 1; j < n; ++j)
 			edits[j - ship_index - 1] = currently_valid[j];
 
@@ -397,7 +399,7 @@ struct unroll_gpu {
 			for (int j = ship_index + 1; j < n; ++j)
 				currently_valid[j] &=
 						validity_masks[validity_masks_offsets[ship_index] +
-													 state_index * n + j]; // TODO is this right?
+													 state_index * n + j];
 			// recurse on remaining ships
 			ll sub_result = unroll_gpu<
 					n_minus_ship_index - 1, validity_masks_t, validity_masks_offsets_t,
@@ -442,7 +444,7 @@ template <unsigned n_minus_ship_index> struct unroll {
 											 const vector<int>& num_valid_states)
 	//, ll &total_successful)
 	{
-		int ship_index = n - n_minus_ship_index;
+		constexpr int ship_index = n - n_minus_ship_index;
 
 		// Save the information about currently_valid that we will need when we
 		// return from recursive calls
@@ -620,7 +622,7 @@ void process_job(vector<place_ship_params> currently_valid_sets,
 					num_valid_states.data(), cl::sycl::range<1>(num_valid_states.size()));
 			auto num_valid_states_acc =
 					num_valid_states_sycl.get_access<cl::sycl::access::mode::read>(cgh);
-			// TODO: convert this to parallel_for
+			// where the magic happens
 			cgh.parallel_for<class gpu_place_ship>(
 					cl::sycl::range<1>{subproblem_results.size()},
 					[=](cl::sycl::item<1> item_id) {
@@ -736,7 +738,7 @@ void count_occurrences(grid_t& misses) {
 	ll total_states = 0;
 	// TODO Now: Parition and job-ify currently_valid_sets
 	vector<ll> subproblem_results(currently_valid_sets.size(), 0);
-	constexpr int total_splits = 4;
+	constexpr int total_splits = 1; // TODO: Do I even still need batches
 	for (int split = 0; split < total_splits; ++split) {
 		int split_l = split * currently_valid_sets.size() / total_splits;
 		int split_r = min((split + 1) * currently_valid_sets.size() / total_splits,
