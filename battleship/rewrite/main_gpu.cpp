@@ -13,8 +13,8 @@ using std::vector;
 
 // #define WIDTH 3
 // #define HEIGHT 3
-// #define n 3
-// const array<size_t, n> lengths = {3, 2, 2};
+// #define n 2
+// const array<size_t, n> lengths = {3, 2};
 #define WIDTH 10
 #define HEIGHT 10
 #define n 5
