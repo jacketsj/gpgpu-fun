@@ -98,7 +98,7 @@ int main() {
 	vector<result_state<n, MAX_PLACEMENTS, COUNT_TYPE>> rs_acc(is_todo.size());
 	vector<COUNT_TYPE> count_acc(is_todo.size());
 
-	size_t BATCHES = 4;
+	size_t BATCHES = 3;
 	for (size_t batch = 0; batch < BATCHES; ++batch) {
 		size_t batch_l = batch * is_todo.size() / BATCHES;
 		size_t batch_r =

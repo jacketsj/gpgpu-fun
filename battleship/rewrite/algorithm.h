@@ -42,9 +42,7 @@ struct unroll_algorithm<N, MAX_PLACEMENTS, COUNT_TYPE, HIT_TYPE, fast_set, 0u> {
 						 result_state<N, MAX_PLACEMENTS, COUNT_TYPE>& rs) {
 		// 0 if not enough hits, 1 if all hits accounted for
 		// not using an if statement to decrease branching (might not matter much)
-		if (vps.total_hit_count > 0)
-			return is.counted_hits() / vps.total_hit_count;
-		return 1;
+		return (is.counted_hits() + 1) / (vps.total_hit_count + 1);
 	}
 };
 
