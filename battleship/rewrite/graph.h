@@ -90,6 +90,11 @@ struct result_state {
 			for (size_t u = 0; u < MAX_PLACEMENTS; ++u)
 				appearance_counts[p][u] = 0;
 	}
+	void sum_from(const result_state& rs) {
+		for (size_t p = 0; p < N; ++p)
+			for (size_t u = 0; u < MAX_PLACEMENTS; ++u)
+				appearance_counts[p][u] += rs.appearance_counts[p][u];
+	}
 };
 
 // Note that unlike placement_graph, the valid_placement_graph will be
