@@ -12,7 +12,7 @@ using std::vector;
 struct square {
 	size_t x, y;
 	square(size_t _x, size_t _y) : x(_x), y(_y) {}
-	bool operator==(const auto& oth) const { return x == oth.x && y == oth.y; }
+	bool operator==(const square& oth) const { return x == oth.x && y == oth.y; }
 };
 
 struct query_miss {

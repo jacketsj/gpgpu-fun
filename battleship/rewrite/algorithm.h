@@ -63,9 +63,8 @@ struct pre_unroll_algorithm {
 		size_t u;
 		while ((u = is.get_next_placement()) != MAX_PLACEMENTS) {
 			vps.increase_depth(is, u);
-			COUNT_TYPE current_result =
-					pre_unroll_algorithm<N, MAX_PLACEMENTS, COUNT_TYPE, HIT_TYPE,
-															 fast_set, i - 1>::place_ship(vps, is);
+			pre_unroll_algorithm<N, MAX_PLACEMENTS, COUNT_TYPE, HIT_TYPE, fast_set,
+													 i - 1, MAX_DEPTH>::place_ship(vps, is, is_todo);
 			vps.decrease_depth(is);
 		}
 	}
@@ -75,11 +74,11 @@ template <size_t N, size_t MAX_PLACEMENTS, typename COUNT_TYPE,
 					typename HIT_TYPE, typename fast_set, size_t MAX_DEPTH>
 struct pre_unroll_algorithm<N, MAX_PLACEMENTS, COUNT_TYPE, HIT_TYPE, fast_set,
 														0u, MAX_DEPTH> {
-	static COUNT_TYPE
-	place_ship(const valid_placement_subgraph<N, MAX_PLACEMENTS, HIT_TYPE,
-																						fast_set>& vps,
-						 iteration_state<N, MAX_PLACEMENTS, HIT_TYPE, fast_set>& is,
-						 result_state<N, MAX_PLACEMENTS, COUNT_TYPE>& rs) {
+	static void place_ship(
+			const valid_placement_subgraph<N, MAX_PLACEMENTS, HIT_TYPE, fast_set>&
+					vps,
+			iteration_state<N, MAX_PLACEMENTS, HIT_TYPE, fast_set>& is,
+			vector<iteration_state<N, MAX_PLACEMENTS, HIT_TYPE, fast_set>>& is_todo) {
 		cerr << "Should not have reached here (bottom of pre_unroll)" << endl;
 	}
 };
@@ -93,18 +92,22 @@ struct post_unroll_algorithm {
 						 iteration_state<N, MAX_PLACEMENTS, HIT_TYPE, fast_set>& is,
 						 result_state<N, MAX_PLACEMENTS, COUNT_TYPE>& rs,
 						 vector<result_state<N, MAX_PLACEMENTS, COUNT_TYPE>>& rs_acc,
-						 size_t& rs_acc_iter) {
+						 size_t& rs_acc_iter, vector<COUNT_TYPE>& count_acc,
+						 size_t& count_acc_iter) {
 		if (MAX_DEPTH == is.current_depth) {
-			rs.sum_from(rs_acc[rs_acc_iter]);
-			return rs_acc[rs_acc_iter++];
+			rs.sum_from(rs_acc[rs_acc_iter++]);
+			return count_acc[count_acc_iter++];
 		}
 		size_t result = 0;
 		size_t u;
 		while ((u = is.get_next_placement()) != MAX_PLACEMENTS) {
 			vps.increase_depth(is, u);
 			COUNT_TYPE current_result =
-					unroll_algorithm<N, MAX_PLACEMENTS, COUNT_TYPE, HIT_TYPE, fast_set,
-													 i - 1>::place_ship(vps, is, rs);
+					post_unroll_algorithm<N, MAX_PLACEMENTS, COUNT_TYPE, HIT_TYPE,
+																fast_set, i - 1,
+																MAX_DEPTH>::place_ship(vps, is, rs, rs_acc,
+																											 rs_acc_iter, count_acc,
+																											 count_acc_iter);
 			vps.decrease_depth(is);
 			rs.add_result(is.current_depth, u, current_result);
 			result += current_result;
@@ -121,7 +124,11 @@ struct post_unroll_algorithm<N, MAX_PLACEMENTS, COUNT_TYPE, HIT_TYPE, fast_set,
 	place_ship(const valid_placement_subgraph<N, MAX_PLACEMENTS, HIT_TYPE,
 																						fast_set>& vps,
 						 iteration_state<N, MAX_PLACEMENTS, HIT_TYPE, fast_set>& is,
-						 result_state<N, MAX_PLACEMENTS, COUNT_TYPE>& rs) {
+						 result_state<N, MAX_PLACEMENTS, COUNT_TYPE>& rs,
+						 vector<result_state<N, MAX_PLACEMENTS, COUNT_TYPE>>& rs_acc,
+						 size_t& rs_acc_iter, vector<COUNT_TYPE>& count_acc,
+						 size_t& count_acc_iter) {
 		cerr << "Should not have reached here (bottom of post_unroll)" << endl;
+		return 0;
 	}
 };
