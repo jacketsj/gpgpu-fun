@@ -1,0 +1,4956 @@
+num placements for ship 0 is 6
+squares of (0:0) are (0,0),(1,0),(2,0),
+squares of (0:1) are (0,1),(1,1),(2,1),
+squares of (0:2) are (0,2),(1,2),(2,2),
+squares of (0:3) are (0,0),(0,1),(0,2),
+squares of (0:4) are (1,0),(1,1),(1,2),
+squares of (0:5) are (2,0),(2,1),(2,2),
+num placements for ship 1 is 12
+squares of (1:0) are (0,0),(1,0),
+squares of (1:1) are (1,0),(2,0),
+squares of (1:2) are (0,1),(1,1),
+squares of (1:3) are (1,1),(2,1),
+squares of (1:4) are (0,2),(1,2),
+squares of (1:5) are (1,2),(2,2),
+squares of (1:6) are (0,0),(0,1),
+squares of (1:7) are (1,0),(1,1),
+squares of (1:8) are (2,0),(2,1),
+squares of (1:9) are (0,1),(0,2),
+squares of (1:10) are (1,1),(1,2),
+squares of (1:11) are (2,1),(2,2),
+Removing edge: (0,0),(1,0)
+Removing edge: (0,0),(1,1)
+Removing edge: (0,0),(1,6)
+Removing edge: (0,0),(1,7)
+Removing edge: (0,0),(1,8)
+Removing edge: (0,1),(1,2)
+Removing edge: (0,1),(1,3)
+Removing edge: (0,1),(1,6)
+Removing edge: (0,1),(1,7)
+Removing edge: (0,1),(1,8)
+Removing edge: (0,1),(1,9)
+Removing edge: (0,1),(1,10)
+Removing edge: (0,1),(1,11)
+Removing edge: (0,2),(1,4)
+Removing edge: (0,2),(1,5)
+Removing edge: (0,2),(1,9)
+Removing edge: (0,2),(1,10)
+Removing edge: (0,2),(1,11)
+Removing edge: (0,3),(1,0)
+Removing edge: (0,3),(1,2)
+Removing edge: (0,3),(1,4)
+Removing edge: (0,3),(1,6)
+Removing edge: (0,3),(1,9)
+Removing edge: (0,4),(1,0)
+Removing edge: (0,4),(1,1)
+Removing edge: (0,4),(1,2)
+Removing edge: (0,4),(1,3)
+Removing edge: (0,4),(1,4)
+Removing edge: (0,4),(1,5)
+Removing edge: (0,4),(1,7)
+Removing edge: (0,4),(1,10)
+Removing edge: (0,5),(1,1)
+Removing edge: (0,5),(1,3)
+Removing edge: (0,5),(1,5)
+Removing edge: (0,5),(1,8)
+Removing edge: (0,5),(1,11)
+Removing edge: (1,0),(0,0)
+Removing edge: (1,0),(0,3)
+Removing edge: (1,0),(0,4)
+Removing edge: (1,1),(0,0)
+Removing edge: (1,1),(0,4)
+Removing edge: (1,1),(0,5)
+Removing edge: (1,2),(0,1)
+Removing edge: (1,2),(0,3)
+Removing edge: (1,2),(0,4)
+Removing edge: (1,3),(0,1)
+Removing edge: (1,3),(0,4)
+Removing edge: (1,3),(0,5)
+Removing edge: (1,4),(0,2)
+Removing edge: (1,4),(0,3)
+Removing edge: (1,4),(0,4)
+Removing edge: (1,5),(0,2)
+Removing edge: (1,5),(0,4)
+Removing edge: (1,5),(0,5)
+Removing edge: (1,6),(0,0)
+Removing edge: (1,6),(0,1)
+Removing edge: (1,6),(0,3)
+Removing edge: (1,7),(0,0)
+Removing edge: (1,7),(0,1)
+Removing edge: (1,7),(0,4)
+Removing edge: (1,8),(0,0)
+Removing edge: (1,8),(0,1)
+Removing edge: (1,8),(0,5)
+Removing edge: (1,9),(0,1)
+Removing edge: (1,9),(0,2)
+Removing edge: (1,9),(0,3)
+Removing edge: (1,10),(0,1)
+Removing edge: (1,10),(0,2)
+Removing edge: (1,10),(0,4)
+Removing edge: (1,11),(0,1)
+Removing edge: (1,11),(0,2)
+Removing edge: (1,11),(0,5)
+edge: 0,0,0,0:false
+edge: 0,0,0,1:false
+edge: 0,0,0,2:false
+edge: 0,0,0,3:false
+edge: 0,0,0,4:false
+edge: 0,0,0,5:false
+edge: 0,0,0,6:false
+edge: 0,0,0,7:false
+edge: 0,0,0,8:false
+edge: 0,0,0,9:false
+edge: 0,0,0,10:false
+edge: 0,0,0,11:false
+edge: 0,0,1,0:false
+edge: 0,0,1,1:false
+edge: 0,0,1,2:true
+edge: 0,0,1,3:true
+edge: 0,0,1,4:true
+edge: 0,0,1,5:true
+edge: 0,0,1,6:false
+edge: 0,0,1,7:false
+edge: 0,0,1,8:false
+edge: 0,0,1,9:true
+edge: 0,0,1,10:true
+edge: 0,0,1,11:true
+edge: 0,1,0,0:false
+edge: 0,1,0,1:false
+edge: 0,1,0,2:false
+edge: 0,1,0,3:false
+edge: 0,1,0,4:false
+edge: 0,1,0,5:false
+edge: 0,1,0,6:false
+edge: 0,1,0,7:false
+edge: 0,1,0,8:false
+edge: 0,1,0,9:false
+edge: 0,1,0,10:false
+edge: 0,1,0,11:false
+edge: 0,1,1,0:true
+edge: 0,1,1,1:true
+edge: 0,1,1,2:false
+edge: 0,1,1,3:false
+edge: 0,1,1,4:true
+edge: 0,1,1,5:true
+edge: 0,1,1,6:false
+edge: 0,1,1,7:false
+edge: 0,1,1,8:false
+edge: 0,1,1,9:false
+edge: 0,1,1,10:false
+edge: 0,1,1,11:false
+edge: 0,2,0,0:false
+edge: 0,2,0,1:false
+edge: 0,2,0,2:false
+edge: 0,2,0,3:false
+edge: 0,2,0,4:false
+edge: 0,2,0,5:false
+edge: 0,2,0,6:false
+edge: 0,2,0,7:false
+edge: 0,2,0,8:false
+edge: 0,2,0,9:false
+edge: 0,2,0,10:false
+edge: 0,2,0,11:false
+edge: 0,2,1,0:true
+edge: 0,2,1,1:true
+edge: 0,2,1,2:true
+edge: 0,2,1,3:true
+edge: 0,2,1,4:false
+edge: 0,2,1,5:false
+edge: 0,2,1,6:true
+edge: 0,2,1,7:true
+edge: 0,2,1,8:true
+edge: 0,2,1,9:false
+edge: 0,2,1,10:false
+edge: 0,2,1,11:false
+edge: 0,3,0,0:false
+edge: 0,3,0,1:false
+edge: 0,3,0,2:false
+edge: 0,3,0,3:false
+edge: 0,3,0,4:false
+edge: 0,3,0,5:false
+edge: 0,3,0,6:false
+edge: 0,3,0,7:false
+edge: 0,3,0,8:false
+edge: 0,3,0,9:false
+edge: 0,3,0,10:false
+edge: 0,3,0,11:false
+edge: 0,3,1,0:false
+edge: 0,3,1,1:true
+edge: 0,3,1,2:false
+edge: 0,3,1,3:true
+edge: 0,3,1,4:false
+edge: 0,3,1,5:true
+edge: 0,3,1,6:false
+edge: 0,3,1,7:true
+edge: 0,3,1,8:true
+edge: 0,3,1,9:false
+edge: 0,3,1,10:true
+edge: 0,3,1,11:true
+edge: 0,4,0,0:false
+edge: 0,4,0,1:false
+edge: 0,4,0,2:false
+edge: 0,4,0,3:false
+edge: 0,4,0,4:false
+edge: 0,4,0,5:false
+edge: 0,4,0,6:false
+edge: 0,4,0,7:false
+edge: 0,4,0,8:false
+edge: 0,4,0,9:false
+edge: 0,4,0,10:false
+edge: 0,4,0,11:false
+edge: 0,4,1,0:false
+edge: 0,4,1,1:false
+edge: 0,4,1,2:false
+edge: 0,4,1,3:false
+edge: 0,4,1,4:false
+edge: 0,4,1,5:false
+edge: 0,4,1,6:true
+edge: 0,4,1,7:false
+edge: 0,4,1,8:true
+edge: 0,4,1,9:true
+edge: 0,4,1,10:false
+edge: 0,4,1,11:true
+edge: 0,5,0,0:false
+edge: 0,5,0,1:false
+edge: 0,5,0,2:false
+edge: 0,5,0,3:false
+edge: 0,5,0,4:false
+edge: 0,5,0,5:false
+edge: 0,5,0,6:false
+edge: 0,5,0,7:false
+edge: 0,5,0,8:false
+edge: 0,5,0,9:false
+edge: 0,5,0,10:false
+edge: 0,5,0,11:false
+edge: 0,5,1,0:true
+edge: 0,5,1,1:false
+edge: 0,5,1,2:true
+edge: 0,5,1,3:false
+edge: 0,5,1,4:true
+edge: 0,5,1,5:false
+edge: 0,5,1,6:true
+edge: 0,5,1,7:true
+edge: 0,5,1,8:false
+edge: 0,5,1,9:true
+edge: 0,5,1,10:true
+edge: 0,5,1,11:false
+edge: 0,6,0,0:false
+edge: 0,6,0,1:false
+edge: 0,6,0,2:false
+edge: 0,6,0,3:false
+edge: 0,6,0,4:false
+edge: 0,6,0,5:false
+edge: 0,6,0,6:false
+edge: 0,6,0,7:false
+edge: 0,6,0,8:false
+edge: 0,6,0,9:false
+edge: 0,6,0,10:false
+edge: 0,6,0,11:false
+edge: 0,6,1,0:true
+edge: 0,6,1,1:true
+edge: 0,6,1,2:true
+edge: 0,6,1,3:true
+edge: 0,6,1,4:true
+edge: 0,6,1,5:true
+edge: 0,6,1,6:true
+edge: 0,6,1,7:true
+edge: 0,6,1,8:true
+edge: 0,6,1,9:true
+edge: 0,6,1,10:true
+edge: 0,6,1,11:true
+edge: 0,7,0,0:false
+edge: 0,7,0,1:false
+edge: 0,7,0,2:false
+edge: 0,7,0,3:false
+edge: 0,7,0,4:false
+edge: 0,7,0,5:false
+edge: 0,7,0,6:false
+edge: 0,7,0,7:false
+edge: 0,7,0,8:false
+edge: 0,7,0,9:false
+edge: 0,7,0,10:false
+edge: 0,7,0,11:false
+edge: 0,7,1,0:false
+edge: 0,7,1,1:false
+edge: 0,7,1,2:false
+edge: 0,7,1,3:false
+edge: 0,7,1,4:false
+edge: 0,7,1,5:false
+edge: 0,7,1,6:false
+edge: 0,7,1,7:false
+edge: 0,7,1,8:false
+edge: 0,7,1,9:false
+edge: 0,7,1,10:false
+edge: 0,7,1,11:false
+edge: 0,8,0,0:false
+edge: 0,8,0,1:false
+edge: 0,8,0,2:false
+edge: 0,8,0,3:false
+edge: 0,8,0,4:false
+edge: 0,8,0,5:false
+edge: 0,8,0,6:false
+edge: 0,8,0,7:false
+edge: 0,8,0,8:false
+edge: 0,8,0,9:false
+edge: 0,8,0,10:false
+edge: 0,8,0,11:false
+edge: 0,8,1,0:false
+edge: 0,8,1,1:false
+edge: 0,8,1,2:false
+edge: 0,8,1,3:false
+edge: 0,8,1,4:false
+edge: 0,8,1,5:false
+edge: 0,8,1,6:false
+edge: 0,8,1,7:false
+edge: 0,8,1,8:false
+edge: 0,8,1,9:false
+edge: 0,8,1,10:false
+edge: 0,8,1,11:false
+edge: 0,9,0,0:false
+edge: 0,9,0,1:false
+edge: 0,9,0,2:false
+edge: 0,9,0,3:false
+edge: 0,9,0,4:false
+edge: 0,9,0,5:false
+edge: 0,9,0,6:false
+edge: 0,9,0,7:false
+edge: 0,9,0,8:false
+edge: 0,9,0,9:false
+edge: 0,9,0,10:false
+edge: 0,9,0,11:false
+edge: 0,9,1,0:false
+edge: 0,9,1,1:false
+edge: 0,9,1,2:false
+edge: 0,9,1,3:false
+edge: 0,9,1,4:false
+edge: 0,9,1,5:false
+edge: 0,9,1,6:false
+edge: 0,9,1,7:false
+edge: 0,9,1,8:false
+edge: 0,9,1,9:false
+edge: 0,9,1,10:false
+edge: 0,9,1,11:false
+edge: 0,10,0,0:false
+edge: 0,10,0,1:false
+edge: 0,10,0,2:false
+edge: 0,10,0,3:false
+edge: 0,10,0,4:false
+edge: 0,10,0,5:false
+edge: 0,10,0,6:false
+edge: 0,10,0,7:false
+edge: 0,10,0,8:false
+edge: 0,10,0,9:false
+edge: 0,10,0,10:false
+edge: 0,10,0,11:false
+edge: 0,10,1,0:false
+edge: 0,10,1,1:false
+edge: 0,10,1,2:false
+edge: 0,10,1,3:false
+edge: 0,10,1,4:false
+edge: 0,10,1,5:false
+edge: 0,10,1,6:false
+edge: 0,10,1,7:false
+edge: 0,10,1,8:false
+edge: 0,10,1,9:false
+edge: 0,10,1,10:false
+edge: 0,10,1,11:false
+edge: 0,11,0,0:false
+edge: 0,11,0,1:false
+edge: 0,11,0,2:false
+edge: 0,11,0,3:false
+edge: 0,11,0,4:false
+edge: 0,11,0,5:false
+edge: 0,11,0,6:false
+edge: 0,11,0,7:false
+edge: 0,11,0,8:false
+edge: 0,11,0,9:false
+edge: 0,11,0,10:false
+edge: 0,11,0,11:false
+edge: 0,11,1,0:false
+edge: 0,11,1,1:false
+edge: 0,11,1,2:false
+edge: 0,11,1,3:false
+edge: 0,11,1,4:false
+edge: 0,11,1,5:false
+edge: 0,11,1,6:false
+edge: 0,11,1,7:false
+edge: 0,11,1,8:false
+edge: 0,11,1,9:false
+edge: 0,11,1,10:false
+edge: 0,11,1,11:false
+edge: 1,0,0,0:false
+edge: 1,0,0,1:false
+edge: 1,0,0,2:false
+edge: 1,0,0,3:false
+edge: 1,0,0,4:false
+edge: 1,0,0,5:false
+edge: 1,0,0,6:false
+edge: 1,0,0,7:false
+edge: 1,0,0,8:false
+edge: 1,0,0,9:false
+edge: 1,0,0,10:false
+edge: 1,0,0,11:false
+edge: 1,0,1,0:false
+edge: 1,0,1,1:false
+edge: 1,0,1,2:false
+edge: 1,0,1,3:false
+edge: 1,0,1,4:false
+edge: 1,0,1,5:false
+edge: 1,0,1,6:false
+edge: 1,0,1,7:false
+edge: 1,0,1,8:false
+edge: 1,0,1,9:false
+edge: 1,0,1,10:false
+edge: 1,0,1,11:false
+edge: 1,1,0,0:false
+edge: 1,1,0,1:false
+edge: 1,1,0,2:false
+edge: 1,1,0,3:false
+edge: 1,1,0,4:false
+edge: 1,1,0,5:false
+edge: 1,1,0,6:false
+edge: 1,1,0,7:false
+edge: 1,1,0,8:false
+edge: 1,1,0,9:false
+edge: 1,1,0,10:false
+edge: 1,1,0,11:false
+edge: 1,1,1,0:false
+edge: 1,1,1,1:false
+edge: 1,1,1,2:false
+edge: 1,1,1,3:false
+edge: 1,1,1,4:false
+edge: 1,1,1,5:false
+edge: 1,1,1,6:false
+edge: 1,1,1,7:false
+edge: 1,1,1,8:false
+edge: 1,1,1,9:false
+edge: 1,1,1,10:false
+edge: 1,1,1,11:false
+edge: 1,2,0,0:false
+edge: 1,2,0,1:false
+edge: 1,2,0,2:false
+edge: 1,2,0,3:false
+edge: 1,2,0,4:false
+edge: 1,2,0,5:false
+edge: 1,2,0,6:false
+edge: 1,2,0,7:false
+edge: 1,2,0,8:false
+edge: 1,2,0,9:false
+edge: 1,2,0,10:false
+edge: 1,2,0,11:false
+edge: 1,2,1,0:false
+edge: 1,2,1,1:false
+edge: 1,2,1,2:false
+edge: 1,2,1,3:false
+edge: 1,2,1,4:false
+edge: 1,2,1,5:false
+edge: 1,2,1,6:false
+edge: 1,2,1,7:false
+edge: 1,2,1,8:false
+edge: 1,2,1,9:false
+edge: 1,2,1,10:false
+edge: 1,2,1,11:false
+edge: 1,3,0,0:false
+edge: 1,3,0,1:false
+edge: 1,3,0,2:false
+edge: 1,3,0,3:false
+edge: 1,3,0,4:false
+edge: 1,3,0,5:false
+edge: 1,3,0,6:false
+edge: 1,3,0,7:false
+edge: 1,3,0,8:false
+edge: 1,3,0,9:false
+edge: 1,3,0,10:false
+edge: 1,3,0,11:false
+edge: 1,3,1,0:false
+edge: 1,3,1,1:false
+edge: 1,3,1,2:false
+edge: 1,3,1,3:false
+edge: 1,3,1,4:false
+edge: 1,3,1,5:false
+edge: 1,3,1,6:false
+edge: 1,3,1,7:false
+edge: 1,3,1,8:false
+edge: 1,3,1,9:false
+edge: 1,3,1,10:false
+edge: 1,3,1,11:false
+edge: 1,4,0,0:false
+edge: 1,4,0,1:false
+edge: 1,4,0,2:false
+edge: 1,4,0,3:false
+edge: 1,4,0,4:false
+edge: 1,4,0,5:false
+edge: 1,4,0,6:false
+edge: 1,4,0,7:false
+edge: 1,4,0,8:false
+edge: 1,4,0,9:false
+edge: 1,4,0,10:false
+edge: 1,4,0,11:false
+edge: 1,4,1,0:false
+edge: 1,4,1,1:false
+edge: 1,4,1,2:false
+edge: 1,4,1,3:false
+edge: 1,4,1,4:false
+edge: 1,4,1,5:false
+edge: 1,4,1,6:false
+edge: 1,4,1,7:false
+edge: 1,4,1,8:false
+edge: 1,4,1,9:false
+edge: 1,4,1,10:false
+edge: 1,4,1,11:false
+edge: 1,5,0,0:false
+edge: 1,5,0,1:false
+edge: 1,5,0,2:false
+edge: 1,5,0,3:false
+edge: 1,5,0,4:false
+edge: 1,5,0,5:false
+edge: 1,5,0,6:false
+edge: 1,5,0,7:false
+edge: 1,5,0,8:false
+edge: 1,5,0,9:false
+edge: 1,5,0,10:false
+edge: 1,5,0,11:false
+edge: 1,5,1,0:false
+edge: 1,5,1,1:false
+edge: 1,5,1,2:false
+edge: 1,5,1,3:false
+edge: 1,5,1,4:false
+edge: 1,5,1,5:false
+edge: 1,5,1,6:false
+edge: 1,5,1,7:false
+edge: 1,5,1,8:false
+edge: 1,5,1,9:false
+edge: 1,5,1,10:false
+edge: 1,5,1,11:false
+edge: 1,6,0,0:false
+edge: 1,6,0,1:false
+edge: 1,6,0,2:false
+edge: 1,6,0,3:false
+edge: 1,6,0,4:false
+edge: 1,6,0,5:false
+edge: 1,6,0,6:false
+edge: 1,6,0,7:false
+edge: 1,6,0,8:false
+edge: 1,6,0,9:false
+edge: 1,6,0,10:false
+edge: 1,6,0,11:false
+edge: 1,6,1,0:false
+edge: 1,6,1,1:false
+edge: 1,6,1,2:false
+edge: 1,6,1,3:false
+edge: 1,6,1,4:false
+edge: 1,6,1,5:false
+edge: 1,6,1,6:false
+edge: 1,6,1,7:false
+edge: 1,6,1,8:false
+edge: 1,6,1,9:false
+edge: 1,6,1,10:false
+edge: 1,6,1,11:false
+edge: 1,7,0,0:false
+edge: 1,7,0,1:false
+edge: 1,7,0,2:false
+edge: 1,7,0,3:false
+edge: 1,7,0,4:false
+edge: 1,7,0,5:false
+edge: 1,7,0,6:false
+edge: 1,7,0,7:false
+edge: 1,7,0,8:false
+edge: 1,7,0,9:false
+edge: 1,7,0,10:false
+edge: 1,7,0,11:false
+edge: 1,7,1,0:false
+edge: 1,7,1,1:false
+edge: 1,7,1,2:false
+edge: 1,7,1,3:false
+edge: 1,7,1,4:false
+edge: 1,7,1,5:false
+edge: 1,7,1,6:false
+edge: 1,7,1,7:false
+edge: 1,7,1,8:false
+edge: 1,7,1,9:false
+edge: 1,7,1,10:false
+edge: 1,7,1,11:false
+edge: 1,8,0,0:false
+edge: 1,8,0,1:false
+edge: 1,8,0,2:false
+edge: 1,8,0,3:false
+edge: 1,8,0,4:false
+edge: 1,8,0,5:false
+edge: 1,8,0,6:false
+edge: 1,8,0,7:false
+edge: 1,8,0,8:false
+edge: 1,8,0,9:false
+edge: 1,8,0,10:false
+edge: 1,8,0,11:false
+edge: 1,8,1,0:false
+edge: 1,8,1,1:false
+edge: 1,8,1,2:false
+edge: 1,8,1,3:false
+edge: 1,8,1,4:false
+edge: 1,8,1,5:false
+edge: 1,8,1,6:false
+edge: 1,8,1,7:false
+edge: 1,8,1,8:false
+edge: 1,8,1,9:false
+edge: 1,8,1,10:false
+edge: 1,8,1,11:false
+edge: 1,9,0,0:false
+edge: 1,9,0,1:false
+edge: 1,9,0,2:false
+edge: 1,9,0,3:false
+edge: 1,9,0,4:false
+edge: 1,9,0,5:false
+edge: 1,9,0,6:false
+edge: 1,9,0,7:false
+edge: 1,9,0,8:false
+edge: 1,9,0,9:false
+edge: 1,9,0,10:false
+edge: 1,9,0,11:false
+edge: 1,9,1,0:false
+edge: 1,9,1,1:false
+edge: 1,9,1,2:false
+edge: 1,9,1,3:false
+edge: 1,9,1,4:false
+edge: 1,9,1,5:false
+edge: 1,9,1,6:false
+edge: 1,9,1,7:false
+edge: 1,9,1,8:false
+edge: 1,9,1,9:false
+edge: 1,9,1,10:false
+edge: 1,9,1,11:false
+edge: 1,10,0,0:false
+edge: 1,10,0,1:false
+edge: 1,10,0,2:false
+edge: 1,10,0,3:false
+edge: 1,10,0,4:false
+edge: 1,10,0,5:false
+edge: 1,10,0,6:false
+edge: 1,10,0,7:false
+edge: 1,10,0,8:false
+edge: 1,10,0,9:false
+edge: 1,10,0,10:false
+edge: 1,10,0,11:false
+edge: 1,10,1,0:false
+edge: 1,10,1,1:false
+edge: 1,10,1,2:false
+edge: 1,10,1,3:false
+edge: 1,10,1,4:false
+edge: 1,10,1,5:false
+edge: 1,10,1,6:false
+edge: 1,10,1,7:false
+edge: 1,10,1,8:false
+edge: 1,10,1,9:false
+edge: 1,10,1,10:false
+edge: 1,10,1,11:false
+edge: 1,11,0,0:false
+edge: 1,11,0,1:false
+edge: 1,11,0,2:false
+edge: 1,11,0,3:false
+edge: 1,11,0,4:false
+edge: 1,11,0,5:false
+edge: 1,11,0,6:false
+edge: 1,11,0,7:false
+edge: 1,11,0,8:false
+edge: 1,11,0,9:false
+edge: 1,11,0,10:false
+edge: 1,11,0,11:false
+edge: 1,11,1,0:false
+edge: 1,11,1,1:false
+edge: 1,11,1,2:false
+edge: 1,11,1,3:false
+edge: 1,11,1,4:false
+edge: 1,11,1,5:false
+edge: 1,11,1,6:false
+edge: 1,11,1,7:false
+edge: 1,11,1,8:false
+edge: 1,11,1,9:false
+edge: 1,11,1,10:false
+edge: 1,11,1,11:false
+placing ship 0 at location 0
+Before(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+Before(depth=0)
+is[0,0]=0
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+After(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=0
+is[1,7]=0
+is[1,8]=0
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+After(depth=0)
+is[0,0]=0
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+	placing ship 1 at location 2
+Before(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+Before(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=0
+is[1,7]=0
+is[1,8]=0
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+After(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+After(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=0
+is[1,7]=0
+is[1,8]=0
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+	[current_result = 1]placing ship 1 at location 2
+	placing ship 1 at location 3
+Before(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+Before(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=0
+is[1,4]=1
+is[1,5]=1
+is[1,6]=0
+is[1,7]=0
+is[1,8]=0
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+After(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+After(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=0
+is[1,4]=1
+is[1,5]=1
+is[1,6]=0
+is[1,7]=0
+is[1,8]=0
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+	[current_result = 1]placing ship 1 at location 3
+	placing ship 1 at location 4
+Before(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+Before(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=0
+is[1,4]=0
+is[1,5]=1
+is[1,6]=0
+is[1,7]=0
+is[1,8]=0
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+After(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+After(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=0
+is[1,4]=0
+is[1,5]=1
+is[1,6]=0
+is[1,7]=0
+is[1,8]=0
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+	[current_result = 1]placing ship 1 at location 4
+	placing ship 1 at location 5
+Before(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+Before(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=0
+is[1,4]=0
+is[1,5]=0
+is[1,6]=0
+is[1,7]=0
+is[1,8]=0
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+After(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+After(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=0
+is[1,4]=0
+is[1,5]=0
+is[1,6]=0
+is[1,7]=0
+is[1,8]=0
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+	[current_result = 1]placing ship 1 at location 5
+	placing ship 1 at location 9
+Before(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+Before(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=0
+is[1,4]=0
+is[1,5]=0
+is[1,6]=0
+is[1,7]=0
+is[1,8]=0
+is[1,9]=0
+is[1,10]=1
+is[1,11]=1
+After(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+After(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=0
+is[1,4]=0
+is[1,5]=0
+is[1,6]=0
+is[1,7]=0
+is[1,8]=0
+is[1,9]=0
+is[1,10]=1
+is[1,11]=1
+	[current_result = 1]placing ship 1 at location 9
+	placing ship 1 at location 10
+Before(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+Before(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=0
+is[1,4]=0
+is[1,5]=0
+is[1,6]=0
+is[1,7]=0
+is[1,8]=0
+is[1,9]=0
+is[1,10]=0
+is[1,11]=1
+After(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+After(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=0
+is[1,4]=0
+is[1,5]=0
+is[1,6]=0
+is[1,7]=0
+is[1,8]=0
+is[1,9]=0
+is[1,10]=0
+is[1,11]=1
+	[current_result = 1]placing ship 1 at location 10
+	placing ship 1 at location 11
+Before(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+Before(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=0
+is[1,4]=0
+is[1,5]=0
+is[1,6]=0
+is[1,7]=0
+is[1,8]=0
+is[1,9]=0
+is[1,10]=0
+is[1,11]=0
+After(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+After(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=0
+is[1,4]=0
+is[1,5]=0
+is[1,6]=0
+is[1,7]=0
+is[1,8]=0
+is[1,9]=0
+is[1,10]=0
+is[1,11]=0
+	[current_result = 1]placing ship 1 at location 11
+[current_result = 7]placing ship 0 at location 0
+placing ship 0 at location 1
+Before(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=0
+is[1,4]=0
+is[1,5]=0
+is[1,6]=0
+is[1,7]=0
+is[1,8]=0
+is[1,9]=0
+is[1,10]=0
+is[1,11]=0
+Before(depth=0)
+is[0,0]=0
+is[0,1]=0
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+After(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=0
+is[1,3]=0
+is[1,4]=1
+is[1,5]=1
+is[1,6]=0
+is[1,7]=0
+is[1,8]=0
+is[1,9]=0
+is[1,10]=0
+is[1,11]=0
+After(depth=0)
+is[0,0]=0
+is[0,1]=0
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+	placing ship 1 at location 0
+Before(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+Before(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=1
+is[1,2]=0
+is[1,3]=0
+is[1,4]=1
+is[1,5]=1
+is[1,6]=0
+is[1,7]=0
+is[1,8]=0
+is[1,9]=0
+is[1,10]=0
+is[1,11]=0
+After(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+After(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=1
+is[1,2]=0
+is[1,3]=0
+is[1,4]=1
+is[1,5]=1
+is[1,6]=0
+is[1,7]=0
+is[1,8]=0
+is[1,9]=0
+is[1,10]=0
+is[1,11]=0
+	[current_result = 1]placing ship 1 at location 0
+	placing ship 1 at location 1
+Before(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+Before(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=0
+is[1,4]=1
+is[1,5]=1
+is[1,6]=0
+is[1,7]=0
+is[1,8]=0
+is[1,9]=0
+is[1,10]=0
+is[1,11]=0
+After(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+After(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=0
+is[1,4]=1
+is[1,5]=1
+is[1,6]=0
+is[1,7]=0
+is[1,8]=0
+is[1,9]=0
+is[1,10]=0
+is[1,11]=0
+	[current_result = 1]placing ship 1 at location 1
+	placing ship 1 at location 4
+Before(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+Before(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=0
+is[1,4]=0
+is[1,5]=1
+is[1,6]=0
+is[1,7]=0
+is[1,8]=0
+is[1,9]=0
+is[1,10]=0
+is[1,11]=0
+After(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+After(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=0
+is[1,4]=0
+is[1,5]=1
+is[1,6]=0
+is[1,7]=0
+is[1,8]=0
+is[1,9]=0
+is[1,10]=0
+is[1,11]=0
+	[current_result = 1]placing ship 1 at location 4
+	placing ship 1 at location 5
+Before(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+Before(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=0
+is[1,4]=0
+is[1,5]=0
+is[1,6]=0
+is[1,7]=0
+is[1,8]=0
+is[1,9]=0
+is[1,10]=0
+is[1,11]=0
+After(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+After(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=0
+is[1,4]=0
+is[1,5]=0
+is[1,6]=0
+is[1,7]=0
+is[1,8]=0
+is[1,9]=0
+is[1,10]=0
+is[1,11]=0
+	[current_result = 1]placing ship 1 at location 5
+[current_result = 4]placing ship 0 at location 1
+placing ship 0 at location 2
+Before(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=0
+is[1,4]=0
+is[1,5]=0
+is[1,6]=0
+is[1,7]=0
+is[1,8]=0
+is[1,9]=0
+is[1,10]=0
+is[1,11]=0
+Before(depth=0)
+is[0,0]=0
+is[0,1]=0
+is[0,2]=0
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+After(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=0
+is[1,5]=0
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=0
+is[1,10]=0
+is[1,11]=0
+After(depth=0)
+is[0,0]=0
+is[0,1]=0
+is[0,2]=0
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+	placing ship 1 at location 0
+Before(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+Before(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=0
+is[1,5]=0
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=0
+is[1,10]=0
+is[1,11]=0
+After(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+After(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=0
+is[1,5]=0
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=0
+is[1,10]=0
+is[1,11]=0
+	[current_result = 1]placing ship 1 at location 0
+	placing ship 1 at location 1
+Before(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+Before(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=1
+is[1,3]=1
+is[1,4]=0
+is[1,5]=0
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=0
+is[1,10]=0
+is[1,11]=0
+After(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+After(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=1
+is[1,3]=1
+is[1,4]=0
+is[1,5]=0
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=0
+is[1,10]=0
+is[1,11]=0
+	[current_result = 1]placing ship 1 at location 1
+	placing ship 1 at location 2
+Before(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+Before(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=1
+is[1,4]=0
+is[1,5]=0
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=0
+is[1,10]=0
+is[1,11]=0
+After(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+After(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=1
+is[1,4]=0
+is[1,5]=0
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=0
+is[1,10]=0
+is[1,11]=0
+	[current_result = 1]placing ship 1 at location 2
+	placing ship 1 at location 3
+Before(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+Before(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=0
+is[1,4]=0
+is[1,5]=0
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=0
+is[1,10]=0
+is[1,11]=0
+After(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+After(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=0
+is[1,4]=0
+is[1,5]=0
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=0
+is[1,10]=0
+is[1,11]=0
+	[current_result = 1]placing ship 1 at location 3
+	placing ship 1 at location 6
+Before(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+Before(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=0
+is[1,4]=0
+is[1,5]=0
+is[1,6]=0
+is[1,7]=1
+is[1,8]=1
+is[1,9]=0
+is[1,10]=0
+is[1,11]=0
+After(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+After(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=0
+is[1,4]=0
+is[1,5]=0
+is[1,6]=0
+is[1,7]=1
+is[1,8]=1
+is[1,9]=0
+is[1,10]=0
+is[1,11]=0
+	[current_result = 1]placing ship 1 at location 6
+	placing ship 1 at location 7
+Before(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+Before(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=0
+is[1,4]=0
+is[1,5]=0
+is[1,6]=0
+is[1,7]=0
+is[1,8]=1
+is[1,9]=0
+is[1,10]=0
+is[1,11]=0
+After(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+After(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=0
+is[1,4]=0
+is[1,5]=0
+is[1,6]=0
+is[1,7]=0
+is[1,8]=1
+is[1,9]=0
+is[1,10]=0
+is[1,11]=0
+	[current_result = 1]placing ship 1 at location 7
+	placing ship 1 at location 8
+Before(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+Before(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=0
+is[1,4]=0
+is[1,5]=0
+is[1,6]=0
+is[1,7]=0
+is[1,8]=0
+is[1,9]=0
+is[1,10]=0
+is[1,11]=0
+After(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+After(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=0
+is[1,4]=0
+is[1,5]=0
+is[1,6]=0
+is[1,7]=0
+is[1,8]=0
+is[1,9]=0
+is[1,10]=0
+is[1,11]=0
+	[current_result = 1]placing ship 1 at location 8
+[current_result = 7]placing ship 0 at location 2
+placing ship 0 at location 3
+Before(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=0
+is[1,4]=0
+is[1,5]=0
+is[1,6]=0
+is[1,7]=0
+is[1,8]=0
+is[1,9]=0
+is[1,10]=0
+is[1,11]=0
+Before(depth=0)
+is[0,0]=0
+is[0,1]=0
+is[0,2]=0
+is[0,3]=0
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+After(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=1
+is[1,2]=0
+is[1,3]=1
+is[1,4]=0
+is[1,5]=1
+is[1,6]=0
+is[1,7]=1
+is[1,8]=1
+is[1,9]=0
+is[1,10]=1
+is[1,11]=1
+After(depth=0)
+is[0,0]=0
+is[0,1]=0
+is[0,2]=0
+is[0,3]=0
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+	placing ship 1 at location 1
+Before(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+Before(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=1
+is[1,4]=0
+is[1,5]=1
+is[1,6]=0
+is[1,7]=1
+is[1,8]=1
+is[1,9]=0
+is[1,10]=1
+is[1,11]=1
+After(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+After(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=1
+is[1,4]=0
+is[1,5]=1
+is[1,6]=0
+is[1,7]=1
+is[1,8]=1
+is[1,9]=0
+is[1,10]=1
+is[1,11]=1
+	[current_result = 1]placing ship 1 at location 1
+	placing ship 1 at location 3
+Before(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+Before(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=0
+is[1,4]=0
+is[1,5]=1
+is[1,6]=0
+is[1,7]=1
+is[1,8]=1
+is[1,9]=0
+is[1,10]=1
+is[1,11]=1
+After(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+After(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=0
+is[1,4]=0
+is[1,5]=1
+is[1,6]=0
+is[1,7]=1
+is[1,8]=1
+is[1,9]=0
+is[1,10]=1
+is[1,11]=1
+	[current_result = 1]placing ship 1 at location 3
+	placing ship 1 at location 5
+Before(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+Before(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=0
+is[1,4]=0
+is[1,5]=0
+is[1,6]=0
+is[1,7]=1
+is[1,8]=1
+is[1,9]=0
+is[1,10]=1
+is[1,11]=1
+After(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+After(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=0
+is[1,4]=0
+is[1,5]=0
+is[1,6]=0
+is[1,7]=1
+is[1,8]=1
+is[1,9]=0
+is[1,10]=1
+is[1,11]=1
+	[current_result = 1]placing ship 1 at location 5
+	placing ship 1 at location 7
+Before(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+Before(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=0
+is[1,4]=0
+is[1,5]=0
+is[1,6]=0
+is[1,7]=0
+is[1,8]=1
+is[1,9]=0
+is[1,10]=1
+is[1,11]=1
+After(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+After(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=0
+is[1,4]=0
+is[1,5]=0
+is[1,6]=0
+is[1,7]=0
+is[1,8]=1
+is[1,9]=0
+is[1,10]=1
+is[1,11]=1
+	[current_result = 1]placing ship 1 at location 7
+	placing ship 1 at location 8
+Before(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+Before(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=0
+is[1,4]=0
+is[1,5]=0
+is[1,6]=0
+is[1,7]=0
+is[1,8]=0
+is[1,9]=0
+is[1,10]=1
+is[1,11]=1
+After(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+After(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=0
+is[1,4]=0
+is[1,5]=0
+is[1,6]=0
+is[1,7]=0
+is[1,8]=0
+is[1,9]=0
+is[1,10]=1
+is[1,11]=1
+	[current_result = 1]placing ship 1 at location 8
+	placing ship 1 at location 10
+Before(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+Before(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=0
+is[1,4]=0
+is[1,5]=0
+is[1,6]=0
+is[1,7]=0
+is[1,8]=0
+is[1,9]=0
+is[1,10]=0
+is[1,11]=1
+After(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+After(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=0
+is[1,4]=0
+is[1,5]=0
+is[1,6]=0
+is[1,7]=0
+is[1,8]=0
+is[1,9]=0
+is[1,10]=0
+is[1,11]=1
+	[current_result = 1]placing ship 1 at location 10
+	placing ship 1 at location 11
+Before(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+Before(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=0
+is[1,4]=0
+is[1,5]=0
+is[1,6]=0
+is[1,7]=0
+is[1,8]=0
+is[1,9]=0
+is[1,10]=0
+is[1,11]=0
+After(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+After(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=0
+is[1,4]=0
+is[1,5]=0
+is[1,6]=0
+is[1,7]=0
+is[1,8]=0
+is[1,9]=0
+is[1,10]=0
+is[1,11]=0
+	[current_result = 1]placing ship 1 at location 11
+[current_result = 7]placing ship 0 at location 3
+placing ship 0 at location 4
+Before(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=0
+is[1,4]=0
+is[1,5]=0
+is[1,6]=0
+is[1,7]=0
+is[1,8]=0
+is[1,9]=0
+is[1,10]=0
+is[1,11]=0
+Before(depth=0)
+is[0,0]=0
+is[0,1]=0
+is[0,2]=0
+is[0,3]=0
+is[0,4]=0
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+After(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=0
+is[1,4]=0
+is[1,5]=0
+is[1,6]=1
+is[1,7]=0
+is[1,8]=1
+is[1,9]=1
+is[1,10]=0
+is[1,11]=1
+After(depth=0)
+is[0,0]=0
+is[0,1]=0
+is[0,2]=0
+is[0,3]=0
+is[0,4]=0
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+	placing ship 1 at location 6
+Before(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+Before(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=0
+is[1,4]=0
+is[1,5]=0
+is[1,6]=0
+is[1,7]=0
+is[1,8]=1
+is[1,9]=1
+is[1,10]=0
+is[1,11]=1
+After(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+After(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=0
+is[1,4]=0
+is[1,5]=0
+is[1,6]=0
+is[1,7]=0
+is[1,8]=1
+is[1,9]=1
+is[1,10]=0
+is[1,11]=1
+	[current_result = 1]placing ship 1 at location 6
+	placing ship 1 at location 8
+Before(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+Before(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=0
+is[1,4]=0
+is[1,5]=0
+is[1,6]=0
+is[1,7]=0
+is[1,8]=0
+is[1,9]=1
+is[1,10]=0
+is[1,11]=1
+After(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+After(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=0
+is[1,4]=0
+is[1,5]=0
+is[1,6]=0
+is[1,7]=0
+is[1,8]=0
+is[1,9]=1
+is[1,10]=0
+is[1,11]=1
+	[current_result = 1]placing ship 1 at location 8
+	placing ship 1 at location 9
+Before(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+Before(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=0
+is[1,4]=0
+is[1,5]=0
+is[1,6]=0
+is[1,7]=0
+is[1,8]=0
+is[1,9]=0
+is[1,10]=0
+is[1,11]=1
+After(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+After(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=0
+is[1,4]=0
+is[1,5]=0
+is[1,6]=0
+is[1,7]=0
+is[1,8]=0
+is[1,9]=0
+is[1,10]=0
+is[1,11]=1
+	[current_result = 1]placing ship 1 at location 9
+	placing ship 1 at location 11
+Before(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+Before(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=0
+is[1,4]=0
+is[1,5]=0
+is[1,6]=0
+is[1,7]=0
+is[1,8]=0
+is[1,9]=0
+is[1,10]=0
+is[1,11]=0
+After(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+After(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=0
+is[1,4]=0
+is[1,5]=0
+is[1,6]=0
+is[1,7]=0
+is[1,8]=0
+is[1,9]=0
+is[1,10]=0
+is[1,11]=0
+	[current_result = 1]placing ship 1 at location 11
+[current_result = 4]placing ship 0 at location 4
+placing ship 0 at location 5
+Before(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=0
+is[1,4]=0
+is[1,5]=0
+is[1,6]=0
+is[1,7]=0
+is[1,8]=0
+is[1,9]=0
+is[1,10]=0
+is[1,11]=0
+Before(depth=0)
+is[0,0]=0
+is[0,1]=0
+is[0,2]=0
+is[0,3]=0
+is[0,4]=0
+is[0,5]=0
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+After(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=0
+is[1,2]=1
+is[1,3]=0
+is[1,4]=1
+is[1,5]=0
+is[1,6]=1
+is[1,7]=1
+is[1,8]=0
+is[1,9]=1
+is[1,10]=1
+is[1,11]=0
+After(depth=0)
+is[0,0]=0
+is[0,1]=0
+is[0,2]=0
+is[0,3]=0
+is[0,4]=0
+is[0,5]=0
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+	placing ship 1 at location 0
+Before(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+Before(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=1
+is[1,3]=0
+is[1,4]=1
+is[1,5]=0
+is[1,6]=1
+is[1,7]=1
+is[1,8]=0
+is[1,9]=1
+is[1,10]=1
+is[1,11]=0
+After(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+After(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=1
+is[1,3]=0
+is[1,4]=1
+is[1,5]=0
+is[1,6]=1
+is[1,7]=1
+is[1,8]=0
+is[1,9]=1
+is[1,10]=1
+is[1,11]=0
+	[current_result = 1]placing ship 1 at location 0
+	placing ship 1 at location 2
+Before(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+Before(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=0
+is[1,4]=1
+is[1,5]=0
+is[1,6]=1
+is[1,7]=1
+is[1,8]=0
+is[1,9]=1
+is[1,10]=1
+is[1,11]=0
+After(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+After(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=0
+is[1,4]=1
+is[1,5]=0
+is[1,6]=1
+is[1,7]=1
+is[1,8]=0
+is[1,9]=1
+is[1,10]=1
+is[1,11]=0
+	[current_result = 1]placing ship 1 at location 2
+	placing ship 1 at location 4
+Before(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+Before(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=0
+is[1,4]=0
+is[1,5]=0
+is[1,6]=1
+is[1,7]=1
+is[1,8]=0
+is[1,9]=1
+is[1,10]=1
+is[1,11]=0
+After(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+After(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=0
+is[1,4]=0
+is[1,5]=0
+is[1,6]=1
+is[1,7]=1
+is[1,8]=0
+is[1,9]=1
+is[1,10]=1
+is[1,11]=0
+	[current_result = 1]placing ship 1 at location 4
+	placing ship 1 at location 6
+Before(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+Before(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=0
+is[1,4]=0
+is[1,5]=0
+is[1,6]=0
+is[1,7]=1
+is[1,8]=0
+is[1,9]=1
+is[1,10]=1
+is[1,11]=0
+After(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+After(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=0
+is[1,4]=0
+is[1,5]=0
+is[1,6]=0
+is[1,7]=1
+is[1,8]=0
+is[1,9]=1
+is[1,10]=1
+is[1,11]=0
+	[current_result = 1]placing ship 1 at location 6
+	placing ship 1 at location 7
+Before(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+Before(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=0
+is[1,4]=0
+is[1,5]=0
+is[1,6]=0
+is[1,7]=0
+is[1,8]=0
+is[1,9]=1
+is[1,10]=1
+is[1,11]=0
+After(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+After(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=0
+is[1,4]=0
+is[1,5]=0
+is[1,6]=0
+is[1,7]=0
+is[1,8]=0
+is[1,9]=1
+is[1,10]=1
+is[1,11]=0
+	[current_result = 1]placing ship 1 at location 7
+	placing ship 1 at location 9
+Before(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+Before(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=0
+is[1,4]=0
+is[1,5]=0
+is[1,6]=0
+is[1,7]=0
+is[1,8]=0
+is[1,9]=0
+is[1,10]=1
+is[1,11]=0
+After(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+After(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=0
+is[1,4]=0
+is[1,5]=0
+is[1,6]=0
+is[1,7]=0
+is[1,8]=0
+is[1,9]=0
+is[1,10]=1
+is[1,11]=0
+	[current_result = 1]placing ship 1 at location 9
+	placing ship 1 at location 10
+Before(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+Before(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=0
+is[1,4]=0
+is[1,5]=0
+is[1,6]=0
+is[1,7]=0
+is[1,8]=0
+is[1,9]=0
+is[1,10]=0
+is[1,11]=0
+After(depth=2)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=1
+is[1,1]=1
+is[1,2]=1
+is[1,3]=1
+is[1,4]=1
+is[1,5]=1
+is[1,6]=1
+is[1,7]=1
+is[1,8]=1
+is[1,9]=1
+is[1,10]=1
+is[1,11]=1
+After(depth=1)
+is[0,0]=1
+is[0,1]=1
+is[0,2]=1
+is[0,3]=1
+is[0,4]=1
+is[0,5]=1
+is[0,6]=0
+is[0,7]=0
+is[0,8]=0
+is[0,9]=0
+is[0,10]=0
+is[0,11]=0
+is[1,0]=0
+is[1,1]=0
+is[1,2]=0
+is[1,3]=0
+is[1,4]=0
+is[1,5]=0
+is[1,6]=0
+is[1,7]=0
+is[1,8]=0
+is[1,9]=0
+is[1,10]=0
+is[1,11]=0
+	[current_result = 1]placing ship 1 at location 10
+[current_result = 7]placing ship 0 at location 5
+total configurations: 36
+	20	20	20
+	20	20	20
+	20	20	20

@@ -1,0 +1,46 @@
+#pragma once
+
+#include "graph.h"
+
+#include <iostream>
+using std::cout;
+using std::endl;
+
+template <size_t N, size_t MAX_PLACEMENTS, typename COUNT_TYPE,
+					typename HIT_TYPE, typename fast_set, size_t i>
+struct unroll_algorithm {
+	static COUNT_TYPE
+	place_ship(const valid_placement_subgraph<N, MAX_PLACEMENTS, HIT_TYPE,
+																						fast_set>& vps,
+						 iteration_state<N, MAX_PLACEMENTS, HIT_TYPE, fast_set>& is,
+						 result_state<N, MAX_PLACEMENTS, COUNT_TYPE>& rs) {
+		size_t result = 0;
+		size_t u;
+		while ((u = is.get_next_placement()) != MAX_PLACEMENTS) {
+			vps.increase_depth(is, u);
+			COUNT_TYPE current_result =
+					unroll_algorithm<N, MAX_PLACEMENTS, COUNT_TYPE, HIT_TYPE, fast_set,
+													 i - 1>::place_ship(vps, is, rs);
+			vps.decrease_depth(is);
+			rs.add_result(is.current_depth, u, current_result);
+			result += current_result;
+		}
+		return result;
+	}
+};
+
+template <size_t N, size_t MAX_PLACEMENTS, typename COUNT_TYPE,
+					typename HIT_TYPE, typename fast_set>
+struct unroll_algorithm<N, MAX_PLACEMENTS, COUNT_TYPE, HIT_TYPE, fast_set, 0u> {
+	static COUNT_TYPE
+	place_ship(const valid_placement_subgraph<N, MAX_PLACEMENTS, HIT_TYPE,
+																						fast_set>& vps,
+						 iteration_state<N, MAX_PLACEMENTS, HIT_TYPE, fast_set>& is,
+						 result_state<N, MAX_PLACEMENTS, COUNT_TYPE>& rs) {
+		// 0 if not enough hits, 1 if all hits accounted for
+		// not using an if statement to decrease branching (might not matter much)
+		if (vps.total_hit_count > 0)
+			return is.counted_hits() / vps.total_hit_count;
+		return 1;
+	}
+};
