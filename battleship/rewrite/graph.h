@@ -66,10 +66,15 @@ struct iteration_state {
 	array<pair<array<fast_set, N>, HIT_TYPE>, N + 1> vertex_subsets;
 	// Destructively get the next placement from
 	// vertex_subsets[current_depth].first
+	/*
 	template <size_t current_depth> size_t get_next_placement() {
 		return vertex_subsets[current_depth]
 				.first[current_depth]
 				.bitscan_destructive_any(MAX_PLACEMENTS);
+	}
+	*/
+	template <size_t current_depth> bool is_valid_placement(size_t u) {
+		return vertex_subsets[current_depth].first[current_depth].test(u);
 	}
 	template <size_t current_depth> HIT_TYPE counted_hits() {
 		return vertex_subsets[current_depth].second;
@@ -122,7 +127,8 @@ struct valid_placement_subgraph {
 			for (size_t u = 0; u < MAX_PLACEMENTS; ++u)
 				for (size_t q = 0; q < N; ++q)
 					for (size_t v = 0; v < MAX_PLACEMENTS; ++v) {
-						adj[p][u][q].assign(v, pg.adj[p][u][q][v]);
+						// adj[p][u][q].assign(v, pg.adj[p][u][q][v]);
+						adj[p][u][q].set(v, pg.adj[p][u][q][v]);
 					}
 		for (size_t p = 0; p < N; ++p)
 			for (size_t u = 0; u < MAX_PLACEMENTS; ++u)

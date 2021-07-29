@@ -18,16 +18,18 @@ struct unroll_algorithm {
 						 iteration_state<N, MAX_PLACEMENTS, HIT_TYPE, fast_set>& is,
 						 result_state<N, MAX_PLACEMENTS, COUNT_TYPE>& rs) {
 		size_t result = 0;
-		size_t u;
-		while ((u = is.template get_next_placement<N - i>()) != MAX_PLACEMENTS) {
-			vps.template increase_depth<N - i>(is, u);
-			COUNT_TYPE current_result =
-					unroll_algorithm<N, MAX_PLACEMENTS, COUNT_TYPE, HIT_TYPE, fast_set,
-													 i - 1>::place_ship(vps, is, rs);
-			vps.template decrease_depth<N - i>(is);
-			rs.add_result(N - i, u, current_result);
-			result += current_result;
-		}
+		// size_t u;
+		// while ((u = is.template get_next_placement<N - i>()) != MAX_PLACEMENTS) {
+		for (size_t u = 0; u < MAX_PLACEMENTS; ++u)
+			if (is.template is_valid_placement<N - i>(u)) {
+				vps.template increase_depth<N - i>(is, u);
+				COUNT_TYPE current_result =
+						unroll_algorithm<N, MAX_PLACEMENTS, COUNT_TYPE, HIT_TYPE, fast_set,
+														 i - 1>::place_ship(vps, is, rs);
+				vps.template decrease_depth<N - i>(is);
+				rs.add_result(N - i, u, current_result);
+				result += current_result;
+			}
 		return result;
 	}
 };
@@ -58,13 +60,15 @@ struct pre_unroll_algorithm {
 			is_todo.push_back(is);
 			return;
 		}
-		size_t u;
-		while ((u = is.template get_next_placement<N - i>()) != MAX_PLACEMENTS) {
-			vps.template increase_depth<N - i>(is, u);
-			pre_unroll_algorithm<N, MAX_PLACEMENTS, COUNT_TYPE, HIT_TYPE, fast_set,
-													 i - 1, MAX_DEPTH>::place_ship(vps, is, is_todo);
-			vps.template decrease_depth<N - i>(is);
-		}
+		// size_t u;
+		// while ((u = is.template get_next_placement<N - i>()) != MAX_PLACEMENTS) {
+		for (size_t u = 0; u < MAX_PLACEMENTS; ++u)
+			if (is.template is_valid_placement<N - i>(u)) {
+				vps.template increase_depth<N - i>(is, u);
+				pre_unroll_algorithm<N, MAX_PLACEMENTS, COUNT_TYPE, HIT_TYPE, fast_set,
+														 i - 1, MAX_DEPTH>::place_ship(vps, is, is_todo);
+				vps.template decrease_depth<N - i>(is);
+			}
 	}
 };
 
@@ -97,19 +101,21 @@ struct post_unroll_algorithm {
 			return count_acc[count_acc_iter++];
 		}
 		size_t result = 0;
-		size_t u;
-		while ((u = is.template get_next_placement<N - i>()) != MAX_PLACEMENTS) {
-			vps.template increase_depth<N - i>(is, u);
-			COUNT_TYPE current_result =
-					post_unroll_algorithm<N, MAX_PLACEMENTS, COUNT_TYPE, HIT_TYPE,
-																fast_set, i - 1,
-																MAX_DEPTH>::place_ship(vps, is, rs, rs_acc,
-																											 rs_acc_iter, count_acc,
-																											 count_acc_iter);
-			vps.template decrease_depth<N - i>(is);
-			rs.add_result(N - i, u, current_result);
-			result += current_result;
-		}
+		// size_t u;
+		// while ((u = is.template get_next_placement<N - i>()) != MAX_PLACEMENTS) {
+		for (size_t u = 0; u < MAX_PLACEMENTS; ++u)
+			if (is.template is_valid_placement<N - i>(u)) {
+				vps.template increase_depth<N - i>(is, u);
+				COUNT_TYPE current_result =
+						post_unroll_algorithm<N, MAX_PLACEMENTS, COUNT_TYPE, HIT_TYPE,
+																	fast_set, i - 1,
+																	MAX_DEPTH>::place_ship(vps, is, rs, rs_acc,
+																												 rs_acc_iter, count_acc,
+																												 count_acc_iter);
+				vps.template decrease_depth<N - i>(is);
+				rs.add_result(N - i, u, current_result);
+				result += current_result;
+			}
 		return result;
 	}
 };

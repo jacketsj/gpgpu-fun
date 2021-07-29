@@ -5,9 +5,10 @@
 #include <vector>
 using std::cout;
 using std::vector;
+#include <bitset>
 
 #include "algorithm.h"
-#include "fast_bitset.h"
+// #include "fast_bitset.h"
 #include "graph.h"
 #include "standard_game.h"
 
@@ -21,7 +22,8 @@ using std::vector;
 const array<size_t, n> lengths = {5, 4, 3, 3, 2};
 
 #define MAX_PLACEMENTS WIDTH*(HEIGHT - 1) + HEIGHT*(WIDTH - 1)
-#define fast_set fast_bitset::bitset<MAX_PLACEMENTS>
+// #define fast_set fast_bitset::bitset<MAX_PLACEMENTS>
+#define fast_set std::bitset<MAX_PLACEMENTS>
 #define HIT_TYPE short
 #define COUNT_TYPE long long
 
