@@ -19,13 +19,13 @@ struct unroll_algorithm {
 						 result_state<N, MAX_PLACEMENTS, COUNT_TYPE>& rs) {
 		size_t result = 0;
 		size_t u;
-		while ((u = is.get_next_placement()) != MAX_PLACEMENTS) {
-			vps.increase_depth(is, u);
+		while ((u = is.template get_next_placement<N - i>()) != MAX_PLACEMENTS) {
+			vps.template increase_depth<N - i>(is, u);
 			COUNT_TYPE current_result =
 					unroll_algorithm<N, MAX_PLACEMENTS, COUNT_TYPE, HIT_TYPE, fast_set,
 													 i - 1>::place_ship(vps, is, rs);
-			vps.decrease_depth(is);
-			rs.add_result(is.current_depth, u, current_result);
+			vps.template decrease_depth<N - i>(is);
+			rs.add_result(N - i, u, current_result);
 			result += current_result;
 		}
 		return result;
@@ -42,7 +42,7 @@ struct unroll_algorithm<N, MAX_PLACEMENTS, COUNT_TYPE, HIT_TYPE, fast_set, 0u> {
 						 result_state<N, MAX_PLACEMENTS, COUNT_TYPE>& rs) {
 		// 0 if not enough hits, 1 if all hits accounted for
 		// not using an if statement to decrease branching (might not matter much)
-		return (is.counted_hits() + 1) / (vps.total_hit_count + 1);
+		return (is.template counted_hits<N>() + 1) / (vps.total_hit_count + 1);
 	}
 };
 
@@ -54,16 +54,16 @@ struct pre_unroll_algorithm {
 					vps,
 			iteration_state<N, MAX_PLACEMENTS, HIT_TYPE, fast_set>& is,
 			vector<iteration_state<N, MAX_PLACEMENTS, HIT_TYPE, fast_set>>& is_todo) {
-		if (MAX_DEPTH == is.current_depth) {
+		if (MAX_DEPTH == N - i) {
 			is_todo.push_back(is);
 			return;
 		}
 		size_t u;
-		while ((u = is.get_next_placement()) != MAX_PLACEMENTS) {
-			vps.increase_depth(is, u);
+		while ((u = is.template get_next_placement<N - i>()) != MAX_PLACEMENTS) {
+			vps.template increase_depth<N - i>(is, u);
 			pre_unroll_algorithm<N, MAX_PLACEMENTS, COUNT_TYPE, HIT_TYPE, fast_set,
 													 i - 1, MAX_DEPTH>::place_ship(vps, is, is_todo);
-			vps.decrease_depth(is);
+			vps.template decrease_depth<N - i>(is);
 		}
 	}
 };
@@ -92,22 +92,22 @@ struct post_unroll_algorithm {
 						 vector<result_state<N, MAX_PLACEMENTS, COUNT_TYPE>>& rs_acc,
 						 size_t& rs_acc_iter, vector<COUNT_TYPE>& count_acc,
 						 size_t& count_acc_iter) {
-		if (MAX_DEPTH == is.current_depth) {
+		if (MAX_DEPTH == N - i) {
 			rs.sum_from(rs_acc[rs_acc_iter++]);
 			return count_acc[count_acc_iter++];
 		}
 		size_t result = 0;
 		size_t u;
-		while ((u = is.get_next_placement()) != MAX_PLACEMENTS) {
-			vps.increase_depth(is, u);
+		while ((u = is.template get_next_placement<N - i>()) != MAX_PLACEMENTS) {
+			vps.template increase_depth<N - i>(is, u);
 			COUNT_TYPE current_result =
 					post_unroll_algorithm<N, MAX_PLACEMENTS, COUNT_TYPE, HIT_TYPE,
 																fast_set, i - 1,
 																MAX_DEPTH>::place_ship(vps, is, rs, rs_acc,
 																											 rs_acc_iter, count_acc,
 																											 count_acc_iter);
-			vps.decrease_depth(is);
-			rs.add_result(is.current_depth, u, current_result);
+			vps.template decrease_depth<N - i>(is);
+			rs.add_result(N - i, u, current_result);
 			result += current_result;
 		}
 		return result;

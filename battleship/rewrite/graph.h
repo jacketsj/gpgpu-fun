@@ -58,7 +58,7 @@ template <size_t N, size_t MAX_PLACEMENTS> struct placement_graph {
 // subgraph, used for clique iteration
 template <size_t N, size_t MAX_PLACEMENTS, typename HIT_TYPE, typename fast_set>
 struct iteration_state {
-	size_t current_depth = 0;
+	// size_t current_depth = 0;
 	// For clique iteration at depth k and ship p>=k, vertex_subsets[k][p] stores
 	// the subset of placements of p which could correspond to vertices,
 	// as well as the total number of hits covered by all placements of ships q<k
@@ -66,12 +66,14 @@ struct iteration_state {
 	array<pair<array<fast_set, N>, HIT_TYPE>, N + 1> vertex_subsets;
 	// Destructively get the next placement from
 	// vertex_subsets[current_depth].first
-	size_t get_next_placement() {
+	template <size_t current_depth> size_t get_next_placement() {
 		return vertex_subsets[current_depth]
 				.first[current_depth]
 				.bitscan_destructive_any(MAX_PLACEMENTS);
 	}
-	HIT_TYPE counted_hits() { return vertex_subsets[current_depth].second; }
+	template <size_t current_depth> HIT_TYPE counted_hits() {
+		return vertex_subsets[current_depth].second;
+	}
 	iteration_state() {
 		for (size_t p = 0; p <= N; ++p)
 			vertex_subsets[p].second = 0;
@@ -159,21 +161,23 @@ struct valid_placement_subgraph {
 			}
 	}
 	// decrease current depth of pr
+	template <size_t current_depth>
 	void decrease_depth(
 			iteration_state<N, MAX_PLACEMENTS, HIT_TYPE, fast_set>& is) const {
-		is.current_depth--;
+		// is.current_depth--;
 	}
 	// increase current depth of pr, using a placement u of ship pr.current_depth
+	template <size_t current_depth>
 	void
 	increase_depth(iteration_state<N, MAX_PLACEMENTS, HIT_TYPE, fast_set>& is,
 								 size_t u) const {
-		size_t& p = is.current_depth;
+		constexpr size_t p = current_depth;
 		is.vertex_subsets[p + 1].second =
 				is.vertex_subsets[p].second + hit_counts[p][u];
 		for (size_t q = p + 1; q < N; ++q) {
 			is.vertex_subsets[p + 1].first[q] =
 					is.vertex_subsets[p].first[q] & adj[p][u][q];
 		}
-		is.current_depth++;
+		// is.current_depth++;
 	}
 };

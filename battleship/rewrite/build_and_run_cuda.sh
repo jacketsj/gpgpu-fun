@@ -1,4 +1,4 @@
-/opt/hipSYCL/bin/syclcc-clang main_gpu.cpp --hipsycl-targets=cuda:sm_75 --cuda-path=/usr/local/cuda -O3 -o main_gpu
+/opt/hipSYCL/bin/syclcc-clang main_gpu.cpp --hipsycl-targets=cuda:sm_75 --cuda-path=/usr/local/cuda -O2 -o main_gpu -funroll-loops
 echo "Compilation done, running..."
 time ./main_gpu
 # non-gpu version

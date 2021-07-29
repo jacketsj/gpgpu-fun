@@ -6,10 +6,10 @@ using std::cout;
 #include "graph.h"
 #include "standard_game.h"
 
-#define WIDTH 3
-#define HEIGHT 3
-#define n 3
-const array<size_t, n> lengths = {3, 2, 2};
+#define WIDTH 8
+#define HEIGHT 8
+#define n 5
+const array<size_t, n> lengths = {5, 4, 3, 2, 2};
 // #define WIDTH 10
 // #define HEIGHT 10
 // #define n 5
