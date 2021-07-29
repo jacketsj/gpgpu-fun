@@ -1,10 +1,13 @@
 #pragma once
 
 #include <array>
+#include <iomanip>
 #include <iostream>
 #include <vector>
 using std::array;
 using std::cout;
+using std::fixed;
+using std::setprecision;
 using std::vector;
 
 #include "graph.h"
@@ -164,7 +167,8 @@ struct standard_game {
 				}
 	}
 	template <typename COUNT_TYPE>
-	void print_output(const result_state<N, MAX_PLACEMENTS, COUNT_TYPE>& rs) {
+	void print_output(const result_state<N, MAX_PLACEMENTS, COUNT_TYPE>& rs,
+										COUNT_TYPE total_configurations) {
 		array<array<COUNT_TYPE, HEIGHT>, WIDTH> square_counts;
 		for (size_t y = 0; y < HEIGHT; ++y)
 			for (size_t x = 0; x < WIDTH; ++x)
@@ -177,6 +181,12 @@ struct standard_game {
 		for (size_t y = 0; y < HEIGHT; ++y) {
 			for (size_t x = 0; x < WIDTH; ++x)
 				cout << '\t' << square_counts[x][y];
+			cout << '\n';
+		}
+		cout << fixed << setprecision(3); // show 3 decimal points
+		for (size_t y = 0; y < HEIGHT; ++y) {
+			for (size_t x = 0; x < WIDTH; ++x)
+				cout << '\t' << double(square_counts[x][y]) / total_configurations;
 			cout << '\n';
 		}
 	}

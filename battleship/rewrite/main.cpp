@@ -7,14 +7,14 @@ using std::cout;
 #include "graph.h"
 #include "standard_game.h"
 
-#define WIDTH 8
-#define HEIGHT 8
-#define n 5
-const array<size_t, n> lengths = {5, 4, 3, 2, 2};
-// #define WIDTH 10
-// #define HEIGHT 10
+// #define WIDTH 8
+// #define HEIGHT 8
 // #define n 5
-// const array<size_t, n> lengths = {5, 4, 3, 3, 2};
+// const array<size_t, n> lengths = {5, 4, 3, 2, 2};
+#define WIDTH 10
+#define HEIGHT 10
+#define n 5
+const array<size_t, n> lengths = {5, 4, 3, 3, 2};
 
 #define MAX_PLACEMENTS WIDTH*(HEIGHT - 1) + HEIGHT*(WIDTH - 1)
 #define fast_set fast_bitset::bitset<MAX_PLACEMENTS>
@@ -31,5 +31,5 @@ int main() {
 			unroll_algorithm<n, MAX_PLACEMENTS, COUNT_TYPE, HIT_TYPE, fast_set,
 											 n>::place_ship(sg.vps, is, rs);
 	cout << "total configurations: " << total_configurations << '\n';
-	sg.print_output(rs);
+	sg.print_output(rs, total_configurations);
 }

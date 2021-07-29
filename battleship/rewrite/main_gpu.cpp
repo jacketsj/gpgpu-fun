@@ -93,6 +93,21 @@ int main() {
 	iteration_state<n, MAX_PLACEMENTS, HIT_TYPE, fast_set> is;
 	sg.vps.init_is(is);
 
+	/*
+	sg.update(query_miss(square(4, 4)));
+	// sg.update(query_hit(square(2, 3)));
+	sg.update(query_hit(square(4, 3)));
+	sg.update(query_hit(square(5, 3)));
+	sg.update(query_hit(square(6, 3)));
+	sg.update(query_hit(square(6, 3)));
+	sg.update(query_hit(square(3, 2)));
+	sg.update(query_hit(square(3, 4)));
+	sg.update(query_hit(square(3, 5)));
+	sg.update(query_hit(square(3, 6)));
+	sg.update(query_hit(square(3, 6)));
+	// sg.update(query_sink(square(3, 3), 0));
+	*/
+
 	iteration_state<n, MAX_PLACEMENTS, HIT_TYPE, fast_set> is_pre = is;
 	vector<iteration_state<n, MAX_PLACEMENTS, HIT_TYPE, fast_set>> is_todo;
 	pre_unroll_algorithm<n, MAX_PLACEMENTS, COUNT_TYPE, HIT_TYPE, fast_set, n,
@@ -118,5 +133,5 @@ int main() {
 																											count_acc_iter);
 
 	cout << "Total configurations: " << total_configurations << '\n';
-	sg.print_output(rs);
+	sg.print_output(rs, total_configurations);
 }
