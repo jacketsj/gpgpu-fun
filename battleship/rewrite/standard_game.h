@@ -1,6 +1,7 @@
 #pragma once
 
 #include <array>
+#include <cstdlib>
 #include <iomanip>
 #include <iostream>
 #include <vector>
@@ -168,7 +169,8 @@ struct standard_game {
 	}
 	template <typename COUNT_TYPE>
 	void print_output(const result_state<N, MAX_PLACEMENTS, COUNT_TYPE>& rs,
-										COUNT_TYPE total_configurations) {
+										COUNT_TYPE total_configurations, bool minimal = false,
+										bool col = false) {
 		array<array<COUNT_TYPE, HEIGHT>, WIDTH> square_counts;
 		for (size_t y = 0; y < HEIGHT; ++y)
 			for (size_t x = 0; x < WIDTH; ++x)
@@ -178,15 +180,64 @@ struct standard_game {
 				for (const auto& s : get_used_squares(p, u))
 					square_counts[s.x][s.y] += rs.appearance_counts[p][u];
 			}
+		if (!minimal)
+			for (size_t y = 0; y < HEIGHT; ++y) {
+				for (size_t x = 0; x < WIDTH; ++x)
+					cout << '\t' << square_counts[x][y];
+				cout << '\n';
+			}
+		if (!minimal)
+			cout << fixed << setprecision(3); // show 3 decimal points
+		else
+			cout << fixed << setprecision(0); // show 0 decimal points
+		cout << "   ";
+		for (size_t x = 0; x < WIDTH; ++x)
+			if (x + 1 < 10)
+				cout << "   " << x + 1;
+		for (size_t x = 0; x < WIDTH; ++x)
+			if (x + 1 >= 10)
+				cout << "  " << x + 1;
+		cout << '\n';
+		cout << "   ";
+		for (size_t x = 0; x < WIDTH; ++x)
+			cout << "----";
+		cout << '\n';
 		for (size_t y = 0; y < HEIGHT; ++y) {
-			for (size_t x = 0; x < WIDTH; ++x)
-				cout << '\t' << square_counts[x][y];
-			cout << '\n';
-		}
-		cout << fixed << setprecision(3); // show 3 decimal points
-		for (size_t y = 0; y < HEIGHT; ++y) {
-			for (size_t x = 0; x < WIDTH; ++x)
-				cout << '\t' << double(square_counts[x][y]) / total_configurations;
+			if (y + 1 < 10)
+				cout << y + 1 << " | ";
+			else
+				cout << y + 1 << "| ";
+			for (size_t x = 0; x < WIDTH; ++x) {
+				if (!minimal)
+					cout << '\t' << double(square_counts[x][y]) / total_configurations;
+				else {
+					using std::string;
+					int percent = int(
+							100 * double(square_counts[x][y]) / total_configurations + 0.5f);
+					string percent_str = std::to_string(percent) + " ";
+					if (percent < 10)
+						percent_str = string(" ") + percent_str;
+					if (percent < 100)
+						percent_str = string(" ") + percent_str;
+					if (col) {
+						string col;
+						if (percent < 10)
+							col = "34";
+						else if (percent < 20)
+							col = "36";
+						else if (percent < 30)
+							col = "35";
+						else if (percent < 60)
+							col = "33";
+						else if (percent < 80)
+							col = "91";
+						else
+							col = "31";
+						cout << string("\x1B[") + col + "m" + percent_str + "\033[0m";
+					} else
+						cout << percent_str;
+				}
+			}
 			cout << '\n';
 		}
 	}

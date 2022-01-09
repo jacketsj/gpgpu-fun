@@ -37,9 +37,8 @@ void process_batch(
 		vector<COUNT_TYPE>& count_acc) {
 	cl::sycl::default_selector device_selector;
 	cl::sycl::queue queue(device_selector);
-	std::cout << "Running on "
-						<< queue.get_device().get_info<cl::sycl::info::device::name>()
-						<< endl;
+	// std::cout << "Running on " <<
+	// queue.get_device().get_info<cl::sycl::info::device::name>() << endl;
 	// getting the total number of compute units
 	auto num_groups =
 			queue.get_device().get_info<cl::sycl::info::device::max_compute_units>();
@@ -50,8 +49,8 @@ void process_batch(
 	// building the best number of global thread
 	auto total_threads = num_groups * work_group_size;
 
-	cout << "Total threads available via GPU: " << num_groups << '*'
-			 << work_group_size << '=' << total_threads << endl;
+	// cout << "Total threads available via GPU: " << num_groups << '*' <<
+	// work_group_size << '=' << total_threads << endl;
 	cl::sycl::buffer<iteration_state<n, MAX_PLACEMENTS, HIT_TYPE, fast_set>>
 			is_todo_buffer(is_todo.data() + offset_l,
 										 cl::sycl::range<1>(offset_r - offset_l));
@@ -93,45 +92,161 @@ int main() {
 	iteration_state<n, MAX_PLACEMENTS, HIT_TYPE, fast_set> is;
 	sg.vps.init_is(is);
 
-	/*
-	sg.update(query_miss(square(4, 4)));
-	// sg.update(query_hit(square(2, 3)));
-	sg.update(query_hit(square(4, 3)));
-	sg.update(query_hit(square(5, 3)));
-	sg.update(query_hit(square(6, 3)));
-	sg.update(query_hit(square(6, 3)));
-	sg.update(query_hit(square(3, 2)));
-	sg.update(query_hit(square(3, 4)));
-	sg.update(query_hit(square(3, 5)));
-	sg.update(query_hit(square(3, 6)));
-	sg.update(query_hit(square(3, 6)));
-	// sg.update(query_sink(square(3, 3), 0));
-	*/
+	auto run = [=](iteration_state<n, MAX_PLACEMENTS, HIT_TYPE, fast_set> is,
+								 standard_game<n, WIDTH, HEIGHT, HIT_TYPE, fast_set> sg) {
+		iteration_state<n, MAX_PLACEMENTS, HIT_TYPE, fast_set> is_pre = is;
+		vector<iteration_state<n, MAX_PLACEMENTS, HIT_TYPE, fast_set>> is_todo;
+		pre_unroll_algorithm<n, MAX_PLACEMENTS, COUNT_TYPE, HIT_TYPE, fast_set, n,
+												 MAX_DEPTH>::place_ship(sg.vps, is_pre, is_todo);
+		vector<result_state<n, MAX_PLACEMENTS, COUNT_TYPE>> rs_acc(is_todo.size());
+		vector<COUNT_TYPE> count_acc(is_todo.size());
 
-	iteration_state<n, MAX_PLACEMENTS, HIT_TYPE, fast_set> is_pre = is;
-	vector<iteration_state<n, MAX_PLACEMENTS, HIT_TYPE, fast_set>> is_todo;
-	pre_unroll_algorithm<n, MAX_PLACEMENTS, COUNT_TYPE, HIT_TYPE, fast_set, n,
-											 MAX_DEPTH>::place_ship(sg.vps, is_pre, is_todo);
-	vector<result_state<n, MAX_PLACEMENTS, COUNT_TYPE>> rs_acc(is_todo.size());
-	vector<COUNT_TYPE> count_acc(is_todo.size());
+		size_t BATCHES = 3;
+		for (size_t batch = 0; batch < BATCHES; ++batch) {
+			size_t batch_l = batch * is_todo.size() / BATCHES;
+			size_t batch_r =
+					std::min((batch + 1) * is_todo.size() / BATCHES, is_todo.size());
+			// printf("Batch %zu: [%zu to %zu)\n", batch, batch_l, batch_r);
+			process_batch(batch_l, batch_r, sg, is_todo, rs_acc, count_acc);
+		}
 
-	size_t BATCHES = 3;
-	for (size_t batch = 0; batch < BATCHES; ++batch) {
-		size_t batch_l = batch * is_todo.size() / BATCHES;
-		size_t batch_r =
-				std::min((batch + 1) * is_todo.size() / BATCHES, is_todo.size());
-		printf("Batch %zu: [%zu to %zu)\n", batch, batch_l, batch_r);
-		process_batch(batch_l, batch_r, sg, is_todo, rs_acc, count_acc);
+		result_state<n, MAX_PLACEMENTS, COUNT_TYPE> rs;
+		size_t rs_acc_iter = 0, count_acc_iter = 0;
+		COUNT_TYPE total_configurations =
+				post_unroll_algorithm<n, MAX_PLACEMENTS, COUNT_TYPE, HIT_TYPE, fast_set,
+															n, MAX_DEPTH>::place_ship(sg.vps, is, rs, rs_acc,
+																												rs_acc_iter, count_acc,
+																												count_acc_iter);
+
+		// cout << "Total configurations: " << total_configurations << '\n';
+		sg.print_output(rs, total_configurations, true, true);
+	};
+	std::string command_line;
+	array<array<char, HEIGHT>, WIDTH> board;
+	for (size_t x = 0; x < WIDTH; ++x)
+		for (size_t y = 0; y < HEIGHT; ++y)
+			board[x][y] = '.';
+	cout << "> ";
+	while (getline(std::cin, command_line)) {
+		if (!command_line.empty()) {
+			std::stringstream ss(command_line);
+			std::string command;
+			ss >> command;
+			// run and reset
+			if (command == "help") {
+				cout << "Available commands:\n";
+				cout << "\tdraw: draw the current board state" << '\n';
+				cout << "\tmiss [x] [y]: Add a miss to the board" << '\n';
+				cout << "\thit [x] [y]: Add a hit to the board" << '\n';
+				cout << "\tsink [x] [y] [ship]: (BROKEN) Add a sink to the board of "
+								"ship [ship]"
+						 << '\n';
+				cout << "\tremove [x] [y]: (DEPRECATED) remove a specific point's "
+								"query response"
+						 << '\n';
+				cout << "\tclear: clear the board" << endl;
+				cout << "\trun: run on gpu" << endl;
+				cout << "\tquit: quit" << endl;
+			} else if (command == "clear") {
+				for (size_t x = 0; x < WIDTH; ++x)
+					for (size_t y = 0; y < HEIGHT; ++y)
+						board[x][y] = '.';
+				sg = standard_game<n, WIDTH, HEIGHT, HIT_TYPE, fast_set>(lengths);
+				sg.vps.init_is(is);
+			} else if (command == "run") {
+				sg = standard_game<n, WIDTH, HEIGHT, HIT_TYPE, fast_set>(lengths);
+				sg.vps.init_is(is);
+				for (size_t x = 0; x < WIDTH; ++x)
+					for (size_t y = 0; y < HEIGHT; ++y) {
+						if (board[x][y] == 'o')
+							sg.update(query_hit(square(x, y)));
+						else if (board[x][y] == 'x')
+							sg.update(query_miss(square(x, y)));
+					}
+				for (size_t x = 0; x < WIDTH; ++x)
+					for (size_t y = 0; y < HEIGHT; ++y) {
+						if (board[x][y] >= '0' && board[x][y] <= '9')
+							sg.update(query_sink(square(x, y), size_t(board[x][y] - '0')));
+					}
+				run(is, sg);
+			} else if (command == "draw") {
+				cout << "Current board state:\n";
+				cout << "   ";
+				for (size_t x = 0; x < WIDTH; ++x)
+					cout << "   " << x + 1;
+				cout << '\n';
+				cout << "   ";
+				for (size_t x = 0; x < WIDTH; ++x)
+					cout << "----";
+				cout << '\n';
+				for (size_t y = 0; y < HEIGHT; ++y) {
+					cout << y + 1 << " | ";
+					for (size_t x = 0; x < WIDTH; ++x)
+						cout << "  " << board[x][y] << " ";
+					cout << '\n';
+				}
+			} else if (command == "remove") {
+				// cout << "deprecated" << endl;
+				size_t x, y;
+				try {
+					ss >> x >> y;
+					board[x][y] = '.';
+				} catch (std::exception e) {
+					cout << "malformatted command \"remove [x] [y]\"" << endl;
+				}
+			} else if (command == "hit") {
+				size_t x, y;
+				try {
+					ss >> x >> y;
+					--x;
+					--y;
+					board[x][y] = 'o';
+					sg.update(query_hit(square(x, y)));
+				} catch (std::exception e) {
+					cout << "malformatted command \"hit [x] [y]\"" << endl;
+				}
+			} else if (command == "sink") {
+				size_t x, y, ship;
+				try {
+					ss >> x >> y >> ship;
+					--x;
+					--y;
+					board[x][y] = char(ship) + '0';
+					sg.update(query_sink(square(x, y), ship));
+				} catch (std::exception e) {
+					cout << "malformatted command \"sink [x] [y] [ship]\"" << endl;
+				}
+			} else if (command == "miss") {
+				size_t x, y;
+				try {
+					ss >> x >> y;
+					--x;
+					--y;
+					board[x][y] = 'x';
+					sg.update(query_miss(square(x, y)));
+				} catch (std::exception e) {
+					cout << "malformatted command \"miss [x] [y]\"" << endl;
+				}
+			} else {
+				cout << "unknown command \"" << command << "\"" << endl;
+				cout << "use \"help\" to get a list of available commands" << endl;
+			}
+		}
+		cout << "> ";
+
+		/*
+		sg.update(query_miss(square(4, 4)));
+		// sg.update(query_hit(square(2, 3)));
+		sg.update(query_hit(square(4, 3)));
+		sg.update(query_hit(square(5, 3)));
+		sg.update(query_hit(square(6, 3)));
+		sg.update(query_hit(square(6, 3)));
+		sg.update(query_hit(square(3, 2)));
+		sg.update(query_hit(square(3, 4)));
+		sg.update(query_hit(square(3, 5)));
+		sg.update(query_hit(square(3, 6)));
+		sg.update(query_hit(square(3, 6)));
+		// sg.update(query_sink(square(3, 3), 0));
+		*/
 	}
-
-	result_state<n, MAX_PLACEMENTS, COUNT_TYPE> rs;
-	size_t rs_acc_iter = 0, count_acc_iter = 0;
-	COUNT_TYPE total_configurations =
-			post_unroll_algorithm<n, MAX_PLACEMENTS, COUNT_TYPE, HIT_TYPE, fast_set,
-														n, MAX_DEPTH>::place_ship(sg.vps, is, rs, rs_acc,
-																											rs_acc_iter, count_acc,
-																											count_acc_iter);
-
-	cout << "Total configurations: " << total_configurations << '\n';
-	sg.print_output(rs, total_configurations);
 }
