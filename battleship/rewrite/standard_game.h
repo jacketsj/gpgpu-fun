@@ -160,12 +160,15 @@ struct standard_game {
 					vps.remove_vertex(p, u);
 		for (size_t u : get_nonoverlapping_placements(qr.ship, qr.loc))
 			vps.remove_vertex(qr.ship, u);
+		/*
+		// Commented out due to different game behaviour in most online variants
 		for (size_t u : get_overlapping_placements(qr.ship, qr.loc))
 			for (const auto& s : get_used_squares(qr.ship, u))
 				if (!is_square_hit(s)) {
 					vps.remove_vertex(qr.ship, u);
 					break;
 				}
+		*/
 	}
 	template <typename COUNT_TYPE>
 	void print_output(const result_state<N, MAX_PLACEMENTS, COUNT_TYPE>& rs,

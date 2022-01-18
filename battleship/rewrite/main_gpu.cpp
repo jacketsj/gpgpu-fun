@@ -180,7 +180,10 @@ int main() {
 					cout << "----";
 				cout << '\n';
 				for (size_t y = 0; y < HEIGHT; ++y) {
-					cout << y + 1 << " | ";
+					if (y + 1 < 10)
+						cout << y + 1 << " | ";
+					else
+						cout << y + 1 << "| ";
 					for (size_t x = 0; x < WIDTH; ++x)
 						cout << "  " << board[x][y] << " ";
 					cout << '\n';
