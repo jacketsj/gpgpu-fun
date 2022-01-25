@@ -205,6 +205,14 @@ struct standard_game {
 		for (size_t x = 0; x < WIDTH; ++x)
 			cout << "----";
 		cout << '\n';
+		size_t highest_square_count = 0;
+		// TODO: instead of checking if < total_configurations, check if not hit
+		// (since sometimes 100% is possible)
+		for (size_t y = 0; y < HEIGHT; ++y)
+			for (size_t x = 0; x < WIDTH; ++x)
+				if (square_counts[x][y] > highest_square_count &&
+						square_counts[x][y] < total_configurations)
+					highest_square_count = square_counts[x][y];
 		for (size_t y = 0; y < HEIGHT; ++y) {
 			if (y + 1 < 10)
 				cout << y + 1 << " | ";
@@ -215,6 +223,7 @@ struct standard_game {
 					cout << '\t' << double(square_counts[x][y]) / total_configurations;
 				else {
 					using std::string;
+					bool is_highest = highest_square_count == square_counts[x][y];
 					int percent = int(
 							100 * double(square_counts[x][y]) / total_configurations + 0.5f);
 					string percent_str = std::to_string(percent) + " ";
@@ -236,6 +245,8 @@ struct standard_game {
 							col = "91";
 						else
 							col = "31";
+						if (is_highest)
+							col += ";4";
 						cout << string("\x1B[") + col + "m" + percent_str + "\033[0m";
 					} else
 						cout << percent_str;
